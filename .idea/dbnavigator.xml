@@ -29,7 +29,8 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f053770f-a5f4-4961-a615-03a3db2c5ed1">
-      <console name="Connection" type="STANDARD" schema="" session="Main" />
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[insert into teachers (first_name, second_name, last_name) values ("afgde", "b", "c");
+select * from teachers;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -73,7 +74,7 @@
           <description value="" />
           <database-type value="SQLITE" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="3.3" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
@@ -82,7 +83,7 @@
           <port value="" />
           <database value="" />
           <files>
-            <file path="sqlite.db" schema="main" />
+            <file path="C:\Users\alexi\IdeaProjects\TimetableApp\sqlite.db" schema="main" />
           </files>
           <type value="NONE" />
           <user value="" />
