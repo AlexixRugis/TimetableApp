@@ -29,7 +29,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f053770f-a5f4-4961-a615-03a3db2c5ed1">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select * from teachers;]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select * from groups;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -37,6 +37,11 @@
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="f053770f-a5f4-4961-a615-03a3db2c5ed1" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="f053770f-a5f4-4961-a615-03a3db2c5ed1" dataset="main.teaching_loads" active-filter-id="3bada9cb-2213-4b49-b23a-1e675e7bcf4e">
+      <filter id="3bada9cb-2213-4b49-b23a-1e675e7bcf4e" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />

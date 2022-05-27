@@ -20,7 +20,7 @@ public final class SpecialityManager extends DbObjectManager<SpecialityModel, Sp
                 "id INTEGER PRIMARY KEY," +
                 "name TEXT NOT NULL" +
                 ")");
-        statement.executeUpdate();
+        int result = statement.executeUpdate();
         statement.close();
     }
 

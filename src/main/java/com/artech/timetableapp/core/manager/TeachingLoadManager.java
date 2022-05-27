@@ -36,7 +36,7 @@ public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel
                 "id INTEGER PRIMARY KEY," +
                 "teacher INTEGER REFERENCES teachers(id) ON DELETE SET NULL," +
                 "subject INTEGER REFERENCES subjects(id) ON DELETE SET NULL," +
-                "group INTEGER REFERENCES groups(id) ON DELETE SET NULL," +
+                "`group` INTEGER REFERENCES groups(id) ON DELETE SET NULL," +
                 "hours_per_week INTEGER NOT NULL" +
                 ")");
         statement.executeUpdate();
@@ -61,7 +61,7 @@ public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel
     @Override
     public boolean tryCreate(TeachingLoadPrototype prototype) {
         try {
-            PreparedStatement statement = handle.buildStatement("INSERT INTO teaching_loads (teacher, subject, group, hours_per_week)" +
+            PreparedStatement statement = handle.buildStatement("INSERT INTO teaching_loads (teacher, subject, `group`, hours_per_week)" +
                     " VALUES (?, ?, ?, ?)");
             statement.setInt(1, prototype.teacher().id());
             statement.setInt(2, prototype.subject().id());
@@ -82,7 +82,7 @@ public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel
     @Override
     public boolean tryUpdate(TeachingLoadModel model) {
         try {
-            PreparedStatement statement = handle.buildStatement("UPDATE teaching_loads SET teacher = ?, subject = ?, group = ?, hours_per_week = ? WHERE id = ?");
+            PreparedStatement statement = handle.buildStatement("UPDATE teaching_loads SET teacher = ?, subject = ?, `group` = ?, hours_per_week = ? WHERE id = ?");
             statement.setInt(1, model.teacher().id());
             statement.setInt(2, model.subject().id());
             statement.setInt(3, model.group().id());
