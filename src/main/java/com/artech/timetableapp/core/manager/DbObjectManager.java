@@ -1,5 +1,7 @@
 package com.artech.timetableapp.core.manager;
 
+import com.artech.timetableapp.core.model.IModel;
+import com.artech.timetableapp.core.model.prototype.IModelPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class DbObjectManager<T> implements IObjectManager<T> {
+public abstract class DbObjectManager<T extends IModel, J extends IModelPrototype<T>> implements IObjectManager<T, J> {
     protected final DatabaseHandle handle;
     protected final String tableName;
 
@@ -24,12 +26,12 @@ public abstract class DbObjectManager<T> implements IObjectManager<T> {
         this.getAllQuery = "SELECT * FROM " + tableName;
         this.deleteQuery = "DELETE FROM " + tableName + " WHERE id = ?";
 
-        initialize();
+        tryCreateTable();
 
     }
 
 
-    protected abstract void initialize() throws SQLException;
+    protected abstract void tryCreateTable() throws SQLException;
     protected abstract T build(ResultSet resultSet);
 
     @Override
@@ -71,10 +73,10 @@ public abstract class DbObjectManager<T> implements IObjectManager<T> {
     }
 
     @Override
-    public boolean tryDelete(Integer id) {
+    public boolean tryDelete(T model) {
         try {
             PreparedStatement statement = handle.buildStatement(deleteQuery);
-            statement.setInt(1, id);
+            statement.setInt(1, model.id());
             int result = statement.executeUpdate();
             statement.close();
 

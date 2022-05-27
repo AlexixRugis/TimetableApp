@@ -13,17 +13,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class HelloApplication extends Application {
-
     @Override
     public void start(Stage stage) throws IOException, SQLException, ClassNotFoundException {
         DatabaseHandle handle = new DatabaseHandle("sqlite.db");
-        IObjectManager<TeacherModel> manager = new TeacherManager(handle);
+        TeacherManager manager = new TeacherManager(handle);
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
-        manager.tryCreate(new TeacherModel("abd", "sfd", "aefrewg"));
-        manager.tryUpdate(1, new TeacherModel("ad", "sfd", "aefrgregewg"));
-        manager.tryDelete(2);
+        //manager.tryCreate(new TeacherModel("abd", "sfd", "aefrewg"));
+        //manager.tryUpdate(1, new TeacherModel("ad", "sfd", "aefrgregewg"));
+        //manager.tryDelete(2);
 
         stage.setTitle(manager.get(1).firstName());
         stage.setScene(scene);

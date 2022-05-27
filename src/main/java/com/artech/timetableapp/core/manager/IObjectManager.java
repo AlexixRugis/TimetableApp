@@ -1,11 +1,14 @@
 package com.artech.timetableapp.core.manager;
 
+import com.artech.timetableapp.core.model.IModel;
+import com.artech.timetableapp.core.model.prototype.IModelPrototype;
+
 import java.util.Collection;
 
-public interface IObjectManager<T> {
-    boolean tryCreate(T model);
+public interface IObjectManager<T extends IModel, J extends IModelPrototype<T>> {
+    boolean tryCreate(J prototype);
     T get(Integer id);
     Collection<T> getAll();
-    boolean tryUpdate(Integer id, T model);
-    boolean tryDelete(Integer id);
+    boolean tryUpdate(T model);
+    boolean tryDelete(T model);
 }

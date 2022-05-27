@@ -1,3 +1,3 @@
 package com.artech.timetableapp.core.model;
 
-public record SpecialityModel(String name) { }
+public record SpecialityModel(Integer id, String name) implements IModel { }
