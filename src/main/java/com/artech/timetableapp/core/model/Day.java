@@ -17,4 +17,16 @@ public enum Day {
     public Integer getIndex() {
         return this.index;
     }
+    public static Day get(Integer index) {
+        return switch (index) {
+            case 0 -> Day.Sunday;
+            case 1 -> Day.Monday;
+            case 2 -> Day.Tuesday;
+            case 3 -> Day.Wednesday;
+            case 4 -> Day.Thursday;
+            case 5 -> Day.Friday;
+            case 6 -> Day.Saturday;
+            default -> throw new RuntimeException("Invalid day index!");
+        };
+    }
 }

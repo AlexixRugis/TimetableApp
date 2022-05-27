@@ -36,6 +36,8 @@ public abstract class DbObjectManager<T extends IModel, J extends IModelPrototyp
 
     @Override
     public T get(Integer id) {
+        if (id == 0) return null;
+
         try {
             PreparedStatement statement = handle.buildStatement(getQuery);
             statement.setInt(1, id);

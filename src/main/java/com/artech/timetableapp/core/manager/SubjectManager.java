@@ -1,6 +1,8 @@
 package com.artech.timetableapp.core.manager;
 
+import com.artech.timetableapp.core.model.SpecialityModel;
 import com.artech.timetableapp.core.model.SubjectModel;
+import com.artech.timetableapp.core.model.prototype.SpecialityPrototype;
 import com.artech.timetableapp.core.model.prototype.SubjectPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
@@ -9,9 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public final class SubjectManager extends DbObjectManager<SubjectModel, SubjectPrototype> {
+    private final IObjectManager<SpecialityModel, SpecialityPrototype> specialityManager;
 
-    public SubjectManager(DatabaseHandle handle) throws SQLException {
-        super(handle, "teachers");
+    public SubjectManager(DatabaseHandle handle, IObjectManager<SpecialityModel, SpecialityPrototype> specialityManager) throws SQLException {
+        super(handle, "subjects");
+        this.specialityManager = specialityManager;
     }
 
     @Override
@@ -32,7 +36,7 @@ public final class SubjectManager extends DbObjectManager<SubjectModel, SubjectP
             return new SubjectModel(
                     result.getInt("id"),
                     result.getString("name"),
-                    null, //TODO: loading from manager
+                    specialityManager.get(result.getInt("speciality")),
                     result.getInt("semester")
             );
         } catch (SQLException e) {

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public final class SpecialityManager extends DbObjectManager<SpecialityModel, SpecialityPrototype> {
 
     public SpecialityManager(DatabaseHandle handle) throws SQLException {
-        super(handle, "teachers");
+        super(handle, "specialities");
     }
 
     @Override

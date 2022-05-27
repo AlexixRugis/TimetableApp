@@ -1,8 +1,6 @@
 package com.artech.timetableapp;
 
-import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.manager.TeacherManager;
-import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
