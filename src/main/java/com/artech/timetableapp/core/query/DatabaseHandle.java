@@ -21,12 +21,16 @@ public final class DatabaseHandle {
         connection = DriverManager.getConnection("jdbc:sqlite:" + this.path);
     }
 
-    public int executeUpdate(SqlQuery query) throws SQLException {
-        Statement statement = connection.createStatement();
-        return statement.executeUpdate(query.query());
+    public void closeConnection() {
+        try {
+            connection.close();
+        }
+        catch (SQLException exception) {
+            System.err.println(exception.getMessage());
+        }
     }
-    public ResultSet executeQuery(SqlQuery query) throws SQLException {
-        Statement statement = connection.createStatement();
-        return statement.executeQuery(query.query());
+
+    public PreparedStatement buildStatement(String query) throws SQLException {
+        return connection.prepareStatement(query);
     }
 }
