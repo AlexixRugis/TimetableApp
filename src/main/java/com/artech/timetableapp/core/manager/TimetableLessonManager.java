@@ -59,6 +59,7 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {
@@ -79,6 +80,7 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {

@@ -55,6 +55,7 @@ public final class SubjectManager extends DbObjectManager<SubjectModel, SubjectP
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {
@@ -75,6 +76,7 @@ public final class SubjectManager extends DbObjectManager<SubjectModel, SubjectP
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {

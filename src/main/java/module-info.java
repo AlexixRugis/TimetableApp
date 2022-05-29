@@ -7,7 +7,9 @@ module com.artech.timetableapp {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
+    requires org.drombler.fx.core.docking;
 
     opens com.artech.timetableapp to javafx.fxml;
+    opens com.artech.timetableapp.UI.Controllers;
     exports com.artech.timetableapp;
 }

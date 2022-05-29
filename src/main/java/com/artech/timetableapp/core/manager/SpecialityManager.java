@@ -45,6 +45,7 @@ public final class SpecialityManager extends DbObjectManager<SpecialityModel, Sp
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {
@@ -63,6 +64,7 @@ public final class SpecialityManager extends DbObjectManager<SpecialityModel, Sp
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {

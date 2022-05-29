@@ -59,6 +59,7 @@ public final class GroupManager extends DbObjectManager<GroupModel, GroupPrototy
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {
@@ -80,6 +81,7 @@ public final class GroupManager extends DbObjectManager<GroupModel, GroupPrototy
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {

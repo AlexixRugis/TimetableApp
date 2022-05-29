@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class DbObjectManager<T extends IModel, J extends IModelPrototype<T>> implements IObjectManager<T, J> {
+
+    private final List<IObjectManagerUpdateListener> listeners = new ArrayList<>();
     protected final DatabaseHandle handle;
     protected final String tableName;
 
@@ -58,7 +60,6 @@ public abstract class DbObjectManager<T extends IModel, J extends IModelPrototyp
 
         try {
             PreparedStatement statement = handle.buildStatement(getAllQuery);
-            statement.setString(1, this.tableName);
             ResultSet result = statement.executeQuery();
 
             while (result.next()) {
@@ -82,6 +83,7 @@ public abstract class DbObjectManager<T extends IModel, J extends IModelPrototyp
             int result = statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return result > 0;
         }
         catch (SQLException exception) {
@@ -89,5 +91,21 @@ public abstract class DbObjectManager<T extends IModel, J extends IModelPrototyp
         }
 
         return false;
+    }
+
+    protected void handleUpdate() {
+        for (IObjectManagerUpdateListener listener : listeners) {
+            if (listener != null) listener.onUpdate();
+        }
+    }
+
+    @Override
+    public void addUpdateListener(IObjectManagerUpdateListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void removeUpdateListener(IObjectManagerUpdateListener listener) {
+        listeners.remove(listener);
     }
 }

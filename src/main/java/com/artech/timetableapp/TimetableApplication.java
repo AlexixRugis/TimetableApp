@@ -1,5 +1,7 @@
 package com.artech.timetableapp;
 
+import com.artech.timetableapp.UI.MainWindow;
+import com.artech.timetableapp.core.IApplication;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 import com.artech.timetableapp.core.storage.DbStorage;
 import com.artech.timetableapp.core.storage.IStorage;
@@ -11,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public final class TimetableApplication extends Application {
+public final class TimetableApplication extends Application implements IApplication {
 
     private final String databasePath;
     private IStorage storage;
@@ -35,17 +37,8 @@ public final class TimetableApplication extends Application {
     }
 
     private void createUI(Stage stage) {
-        FXMLLoader fxmlLoader = new FXMLLoader(TimetableApplication.class.getResource("hello-view.fxml"));
-        Scene scene = null;
-        try {
-            scene = new Scene(fxmlLoader.load(), 320, 240);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        stage.setTitle("hello");
-        stage.setScene(scene);
-        stage.show();
+        MainWindow window = new MainWindow(this.storage);
+        window.run(stage);
     }
 
     private void createStorage() {
@@ -70,4 +63,8 @@ public final class TimetableApplication extends Application {
     }
 
 
+    @Override
+    public IStorage getStorage() {
+        return this.storage;
+    }
 }

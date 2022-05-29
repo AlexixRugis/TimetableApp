@@ -51,6 +51,7 @@ public final class TeacherManager extends DbObjectManager<TeacherModel, TeacherP
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {
@@ -71,6 +72,7 @@ public final class TeacherManager extends DbObjectManager<TeacherModel, TeacherP
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {

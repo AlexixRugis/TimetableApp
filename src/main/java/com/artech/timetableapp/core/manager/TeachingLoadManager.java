@@ -70,6 +70,7 @@ public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {
@@ -91,6 +92,7 @@ public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel
             statement.executeUpdate();
             statement.close();
 
+            handleUpdate();
             return true;
         }
         catch (SQLException exception) {
