@@ -1,7 +1,8 @@
-package com.artech.timetableapp.core.manager;
+package com.artech.timetableapp.database.manager;
 
+import com.artech.timetableapp.core.manager.IManagerUpdateListener;
+import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.IModel;
-import com.artech.timetableapp.core.model.prototype.IModelPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class DbObjectManager<T extends IModel, J extends IModelPrototype<T>> implements IObjectManager<T, J> {
+public abstract class DbObjectManager<T extends IModel, J> implements IObjectManager<T, J> {
 
-    private final List<IObjectManagerUpdateListener> listeners = new ArrayList<>();
+    private final List<IManagerUpdateListener> listeners = new ArrayList<>();
     protected final DatabaseHandle handle;
     protected final String tableName;
 
@@ -94,18 +95,18 @@ public abstract class DbObjectManager<T extends IModel, J extends IModelPrototyp
     }
 
     protected void handleUpdate() {
-        for (IObjectManagerUpdateListener listener : listeners) {
+        for (IManagerUpdateListener listener : listeners) {
             if (listener != null) listener.onUpdate();
         }
     }
 
     @Override
-    public void addUpdateListener(IObjectManagerUpdateListener listener) {
+    public void addUpdateListener(IManagerUpdateListener listener) {
         listeners.add(listener);
     }
 
     @Override
-    public void removeUpdateListener(IObjectManagerUpdateListener listener) {
+    public void removeUpdateListener(IManagerUpdateListener listener) {
         listeners.remove(listener);
     }
 }

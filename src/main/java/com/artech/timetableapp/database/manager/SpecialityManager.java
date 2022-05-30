@@ -1,5 +1,6 @@
-package com.artech.timetableapp.core.manager;
+package com.artech.timetableapp.database.manager;
 
+import com.artech.timetableapp.core.manager.ISpecialityManager;
 import com.artech.timetableapp.core.model.SpecialityModel;
 import com.artech.timetableapp.core.model.prototype.SpecialityPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
@@ -8,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class SpecialityManager extends DbObjectManager<SpecialityModel, SpecialityPrototype> {
+public final class SpecialityManager extends DbObjectManager<SpecialityModel, SpecialityPrototype> implements ISpecialityManager {
 
     public SpecialityManager(DatabaseHandle handle) throws SQLException {
         super(handle, "specialities");

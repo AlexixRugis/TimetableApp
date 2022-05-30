@@ -1,5 +1,7 @@
-package com.artech.timetableapp.core.manager;
+package com.artech.timetableapp.database.manager;
 
+import com.artech.timetableapp.core.manager.IObjectManager;
+import com.artech.timetableapp.core.manager.ITeachingLoadManager;
 import com.artech.timetableapp.core.model.GroupModel;
 import com.artech.timetableapp.core.model.SubjectModel;
 import com.artech.timetableapp.core.model.TeacherModel;
@@ -14,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel, TeachingLoadPrototype> {
+public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel, TeachingLoadPrototype> implements ITeachingLoadManager {
 
     private final IObjectManager<TeacherModel, TeacherPrototype> teacherManager;
     private final IObjectManager<SubjectModel, SubjectPrototype> subjectManager;

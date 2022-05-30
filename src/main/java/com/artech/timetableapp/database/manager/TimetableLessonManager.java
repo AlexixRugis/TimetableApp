@@ -1,10 +1,10 @@
-package com.artech.timetableapp.core.manager;
+package com.artech.timetableapp.database.manager;
 
+import com.artech.timetableapp.core.manager.IObjectManager;
+import com.artech.timetableapp.core.manager.ITimetableLessonManager;
 import com.artech.timetableapp.core.model.Day;
-import com.artech.timetableapp.core.model.SpecialityModel;
 import com.artech.timetableapp.core.model.TeachingLoadModel;
 import com.artech.timetableapp.core.model.TimetableLessonModel;
-import com.artech.timetableapp.core.model.prototype.SpecialityPrototype;
 import com.artech.timetableapp.core.model.prototype.TeachingLoadPrototype;
 import com.artech.timetableapp.core.model.prototype.TimetableLessonPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class TimetableLessonManager extends DbObjectManager<TimetableLessonModel, TimetableLessonPrototype> {
+public final class TimetableLessonManager extends DbObjectManager<TimetableLessonModel, TimetableLessonPrototype> implements ITimetableLessonManager {
 
     private final IObjectManager<TeachingLoadModel, TeachingLoadPrototype> teachingLoadManager;
 

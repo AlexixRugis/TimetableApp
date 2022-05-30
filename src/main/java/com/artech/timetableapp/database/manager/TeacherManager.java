@@ -1,5 +1,6 @@
-package com.artech.timetableapp.core.manager;
+package com.artech.timetableapp.database.manager;
 
+import com.artech.timetableapp.core.manager.ITeacherManager;
 import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.model.prototype.TeacherPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
@@ -8,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class TeacherManager extends DbObjectManager<TeacherModel, TeacherPrototype> {
+public final class TeacherManager extends DbObjectManager<TeacherModel, TeacherPrototype> implements ITeacherManager {
 
     public TeacherManager(DatabaseHandle handle) throws SQLException {
         super(handle, "teachers");

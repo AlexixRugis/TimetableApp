@@ -2,7 +2,6 @@ package com.artech.timetableapp.UI.Controllers;
 
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.IModel;
-import com.artech.timetableapp.core.model.prototype.IModelPrototype;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,12 +9,12 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
-public class ModelEditItemController<T extends IModel> extends Controller{
+public class ModelEditItemController<T extends IModel, J> extends Controller{
 
     private final T model;
-    private final IObjectManager<T, IModelPrototype<T>> manager;
+    private final IObjectManager<T, J> manager;
 
-    public ModelEditItemController(IStorage storage, IObjectManager<T, IModelPrototype<T>> manager, T model) {
+    public ModelEditItemController(IStorage storage, IObjectManager<T, J> manager, T model) {
         super(storage);
         this.manager = manager;
         this.model = model;

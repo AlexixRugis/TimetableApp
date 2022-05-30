@@ -3,14 +3,11 @@ package com.artech.timetableapp;
 import com.artech.timetableapp.UI.MainWindow;
 import com.artech.timetableapp.core.IApplication;
 import com.artech.timetableapp.core.query.DatabaseHandle;
-import com.artech.timetableapp.core.storage.DbStorage;
+import com.artech.timetableapp.database.storage.DbStorage;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public final class TimetableApplication extends Application implements IApplication {

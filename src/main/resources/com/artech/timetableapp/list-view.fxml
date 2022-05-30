@@ -7,7 +7,7 @@
    <children>
       <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <Button mnemonicParsing="false" text="Добавить" />
+          <Button mnemonicParsing="false" text="Добавить" onAction="#addNew"/>
         </items>
       </ToolBar>
       <ListView fx:id="list" layoutY="40.0" prefHeight="360.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />

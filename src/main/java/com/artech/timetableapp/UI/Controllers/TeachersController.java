@@ -1,7 +1,8 @@
 package com.artech.timetableapp.UI.Controllers;
 
 import com.artech.timetableapp.UI.Views.ModelEditItemView;
-import com.artech.timetableapp.core.manager.IObjectManagerUpdateListener;
+import com.artech.timetableapp.core.manager.IManagerUpdateListener;
+import com.artech.timetableapp.core.manager.ITeacherManager;
 import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.model.prototype.TeacherPrototype;
 import com.artech.timetableapp.core.storage.IStorage;
@@ -13,13 +14,13 @@ import javafx.scene.control.ListView;
 
 import java.util.Collection;
 
-public class TeachersController extends Controller implements IObjectManagerUpdateListener {
+public class TeachersController extends ModelListController<ITeacherManager> implements IManagerUpdateListener {
 
     @FXML
     private ListView list;
 
     public TeachersController(IStorage storage) {
-        super(storage);
+        super(storage, storage.teacherManager());
     }
 
     @FXML
@@ -43,5 +44,10 @@ public class TeachersController extends Controller implements IObjectManagerUpda
     @Override
     public void onUpdate() {
         updateData();
+    }
+
+    @Override
+    protected Object getPrototype() {
+        return new TeacherPrototype("кек", "кекович", "кековский");
     }
 }

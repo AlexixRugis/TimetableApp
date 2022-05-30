@@ -5,14 +5,13 @@ import com.artech.timetableapp.UI.Controllers.Controller;
 import com.artech.timetableapp.UI.Controllers.ModelEditItemController;
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.IModel;
-import com.artech.timetableapp.core.model.prototype.IModelPrototype;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.scene.Node;
 import javafx.scene.text.Text;
 
 import java.net.URL;
 
-public class ModelEditItemView<T extends IModel, J extends IModelPrototype<T>> extends FXMLView {
+public class ModelEditItemView<T extends IModel, J> extends FXMLView {
     protected final IModel model;
     protected final IStorage storage;
     protected final IObjectManager<T, J> manager;

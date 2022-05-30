@@ -1,14 +1,13 @@
 package com.artech.timetableapp.core.manager;
 
 import com.artech.timetableapp.core.model.IModel;
-import com.artech.timetableapp.core.model.prototype.IModelPrototype;
 
 import java.util.Collection;
 
-public interface IObjectManager<T extends IModel, J extends IModelPrototype<T>> {
+public interface IObjectManager<T extends IModel, J> {
 
-    void addUpdateListener(IObjectManagerUpdateListener listener);
-    void removeUpdateListener(IObjectManagerUpdateListener listener);
+    void addUpdateListener(IManagerUpdateListener listener);
+    void removeUpdateListener(IManagerUpdateListener listener);
     boolean tryCreate(J prototype);
     T get(Integer id);
     Collection<T> getAll();
