@@ -9,9 +9,9 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
-public class ModelEditItemController<T extends IModel, J> extends Controller{
+public abstract class ModelEditItemController<T extends IModel, J> extends Controller{
 
-    private final T model;
+    protected final T model;
     private final IObjectManager<T, J> manager;
 
     public ModelEditItemController(IStorage storage, IObjectManager<T, J> manager, T model) {
@@ -22,7 +22,7 @@ public class ModelEditItemController<T extends IModel, J> extends Controller{
 
     @FXML
     public void onEdit() {
-        //TODO: https://code.makery.ch/blog/javafx-dialogs-official/
+        this.manager.tryUpdate(handleEdit(this.model));
     }
 
     @FXML
@@ -39,4 +39,7 @@ public class ModelEditItemController<T extends IModel, J> extends Controller{
 
         System.out.println("delete " + this.model.id());
     }
+
+    //TODO: https://code.makery.ch/blog/javafx-dialogs-official/
+    protected abstract T handleEdit(T model);
 }

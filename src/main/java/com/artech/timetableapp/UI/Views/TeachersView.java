@@ -1,7 +1,7 @@
 package com.artech.timetableapp.UI.Views;
 
 import com.artech.timetableapp.UI.Controllers.Controller;
-import com.artech.timetableapp.UI.Controllers.TeachersController;
+import com.artech.timetableapp.UI.teachers.TeachersController;
 import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.storage.IStorage;
 

@@ -12,4 +12,5 @@ module com.artech.timetableapp {
     opens com.artech.timetableapp to javafx.fxml;
     opens com.artech.timetableapp.UI.Controllers;
     exports com.artech.timetableapp;
+    opens com.artech.timetableapp.UI.teachers;
 }

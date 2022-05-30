@@ -1,6 +1,7 @@
-package com.artech.timetableapp.UI.Controllers;
+package com.artech.timetableapp.UI.teachers;
 
-import com.artech.timetableapp.UI.Views.ModelEditItemView;
+import com.artech.timetableapp.UI.Controllers.ModelListController;
+import com.artech.timetableapp.UI.Views.ModelEditView;
 import com.artech.timetableapp.core.manager.IManagerUpdateListener;
 import com.artech.timetableapp.core.manager.ITeacherManager;
 import com.artech.timetableapp.core.model.TeacherModel;
@@ -37,7 +38,7 @@ public class TeachersController extends ModelListController<ITeacherManager> imp
 
     private void setListData(Collection<TeacherModel> items) {
         ObservableList<Node> views = FXCollections.observableArrayList();
-        for (TeacherModel item : items) views.add(new ModelEditItemView<>(item, this.storage, this.storage.teacherManager()).getContent());
+        for (TeacherModel item : items) views.add(new TeacherEditView(item, this.storage, this.storage.teacherManager()).getContent());
         list.setItems(views);
     }
 
