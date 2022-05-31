@@ -1,8 +1,8 @@
 package com.artech.timetableapp.UI;
 
 import com.artech.timetableapp.TimetableApplication;
-import com.artech.timetableapp.UI.Views.IView;
-import com.artech.timetableapp.UI.Views.TeachersView;
+import com.artech.timetableapp.UI.Views.View;
+import com.artech.timetableapp.UI.teachers.TeachersView;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -44,7 +44,7 @@ public final class MainWindow {
         addTab(pane, new TeachersView(this.storage));
     }
 
-    private void addTab(TabPane pane, IView view) {
+    private void addTab(TabPane pane, View view) {
         Tab tab = new Tab(view.getName());
         tab.setContent(view.getContent());
         pane.getTabs().add(tab);

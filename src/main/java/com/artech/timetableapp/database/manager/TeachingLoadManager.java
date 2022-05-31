@@ -6,26 +6,22 @@ import com.artech.timetableapp.core.model.GroupModel;
 import com.artech.timetableapp.core.model.SubjectModel;
 import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.model.TeachingLoadModel;
-import com.artech.timetableapp.core.model.prototype.GroupPrototype;
-import com.artech.timetableapp.core.model.prototype.SubjectPrototype;
-import com.artech.timetableapp.core.model.prototype.TeacherPrototype;
-import com.artech.timetableapp.core.model.prototype.TeachingLoadPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel, TeachingLoadPrototype> implements ITeachingLoadManager {
+public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel> implements ITeachingLoadManager {
 
-    private final IObjectManager<TeacherModel, TeacherPrototype> teacherManager;
-    private final IObjectManager<SubjectModel, SubjectPrototype> subjectManager;
-    private final IObjectManager<GroupModel, GroupPrototype> groupManager;
+    private final IObjectManager<TeacherModel> teacherManager;
+    private final IObjectManager<SubjectModel> subjectManager;
+    private final IObjectManager<GroupModel> groupManager;
 
     public TeachingLoadManager(DatabaseHandle handle,
-                               IObjectManager<TeacherModel, TeacherPrototype> teacherManager,
-                               IObjectManager<SubjectModel, SubjectPrototype> subjectManager,
-                               IObjectManager<GroupModel, GroupPrototype> groupManager) throws SQLException {
+                               IObjectManager<TeacherModel> teacherManager,
+                               IObjectManager<SubjectModel> subjectManager,
+                               IObjectManager<GroupModel> groupManager) throws SQLException {
         super(handle, "teaching_loads");
         this.teacherManager = teacherManager;
         this.subjectManager = subjectManager;
@@ -61,7 +57,7 @@ public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel
     }
 
     @Override
-    public boolean tryCreate(TeachingLoadPrototype prototype) {
+    public boolean tryCreate(TeachingLoadModel prototype) {
         try {
             PreparedStatement statement = handle.buildStatement("INSERT INTO teaching_loads (teacher, subject, `group`, hours_per_week)" +
                     " VALUES (?, ?, ?, ?)");

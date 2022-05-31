@@ -8,9 +8,10 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.net.URL;
 
-public abstract class FXMLView implements IView {
+public abstract class FXMLView extends View {
+
     @Override
-    public Node getContent() {
+    protected Node build() {
         FXMLLoader loader = new FXMLLoader(getFXMLResourceURL());
         loader.setController(getController());
 

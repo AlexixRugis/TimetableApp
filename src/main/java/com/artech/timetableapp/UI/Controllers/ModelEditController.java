@@ -9,12 +9,12 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
-public abstract class ModelEditItemController<T extends IModel, J> extends Controller{
+public abstract class ModelEditController<T extends IModel> extends Controller{
 
     protected final T model;
-    private final IObjectManager<T, J> manager;
+    private final IObjectManager<T> manager;
 
-    public ModelEditItemController(IStorage storage, IObjectManager<T, J> manager, T model) {
+    public ModelEditController(IStorage storage, IObjectManager<T> manager, T model) {
         super(storage);
         this.manager = manager;
         this.model = model;

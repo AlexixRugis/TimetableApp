@@ -4,19 +4,17 @@ import com.artech.timetableapp.core.manager.IGroupManager;
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.GroupModel;
 import com.artech.timetableapp.core.model.SpecialityModel;
-import com.artech.timetableapp.core.model.prototype.GroupPrototype;
-import com.artech.timetableapp.core.model.prototype.SpecialityPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class GroupManager extends DbObjectManager<GroupModel, GroupPrototype> implements IGroupManager {
+public final class GroupManager extends DbObjectManager<GroupModel> implements IGroupManager {
 
-    private final IObjectManager<SpecialityModel, SpecialityPrototype> specialityManager;
+    private final IObjectManager<SpecialityModel> specialityManager;
 
-    public GroupManager(DatabaseHandle handle, IObjectManager<SpecialityModel, SpecialityPrototype> specialityManager) throws SQLException {
+    public GroupManager(DatabaseHandle handle, IObjectManager<SpecialityModel> specialityManager) throws SQLException {
         super(handle, "groups");
         this.specialityManager = specialityManager;
     }
@@ -50,7 +48,7 @@ public final class GroupManager extends DbObjectManager<GroupModel, GroupPrototy
     }
 
     @Override
-    public boolean tryCreate(GroupPrototype prototype) {
+    public boolean tryCreate(GroupModel prototype) {
         try {
             PreparedStatement statement = handle.buildStatement("INSERT INTO groups (name, speciality, semester, num_study_weeks)" +
                     " VALUES (?, ?, ?, ?)");

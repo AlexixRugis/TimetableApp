@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class DbObjectManager<T extends IModel, J> implements IObjectManager<T, J> {
+public abstract class DbObjectManager<T extends IModel> implements IObjectManager<T> {
 
     private final List<IManagerUpdateListener> listeners = new ArrayList<>();
     protected final DatabaseHandle handle;

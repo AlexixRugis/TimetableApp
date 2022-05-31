@@ -9,12 +9,12 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 
-public abstract class ModelEditView<T extends IModel, J> extends FXMLView {
+public abstract class ModelEditView<T extends IModel> extends FXMLView {
     protected final T model;
     protected final IStorage storage;
-    protected final IObjectManager<T, J> manager;
+    protected final IObjectManager<T> manager;
 
-    public ModelEditView(T model, IStorage storage, IObjectManager<T, J> manager) {
+    public ModelEditView(T model, IStorage storage, IObjectManager<T> manager) {
         this.model = model;
         this.storage = storage;
         this.manager = manager;

@@ -4,18 +4,16 @@ import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.manager.ISubjectManager;
 import com.artech.timetableapp.core.model.SpecialityModel;
 import com.artech.timetableapp.core.model.SubjectModel;
-import com.artech.timetableapp.core.model.prototype.SpecialityPrototype;
-import com.artech.timetableapp.core.model.prototype.SubjectPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class SubjectManager extends DbObjectManager<SubjectModel, SubjectPrototype> implements ISubjectManager {
-    private final IObjectManager<SpecialityModel, SpecialityPrototype> specialityManager;
+public final class SubjectManager extends DbObjectManager<SubjectModel> implements ISubjectManager {
+    private final IObjectManager<SpecialityModel> specialityManager;
 
-    public SubjectManager(DatabaseHandle handle, IObjectManager<SpecialityModel, SpecialityPrototype> specialityManager) throws SQLException {
+    public SubjectManager(DatabaseHandle handle, IObjectManager<SpecialityModel> specialityManager) throws SQLException {
         super(handle, "subjects");
         this.specialityManager = specialityManager;
     }
@@ -47,7 +45,7 @@ public final class SubjectManager extends DbObjectManager<SubjectModel, SubjectP
     }
 
     @Override
-    public boolean tryCreate(SubjectPrototype prototype) {
+    public boolean tryCreate(SubjectModel prototype) {
         try {
             PreparedStatement statement = handle.buildStatement("INSERT INTO subjects (name, speciality, semester)" +
                     " VALUES (?, ?, ?)");

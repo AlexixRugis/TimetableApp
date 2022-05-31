@@ -5,19 +5,17 @@ import com.artech.timetableapp.core.manager.ITimetableLessonManager;
 import com.artech.timetableapp.core.model.Day;
 import com.artech.timetableapp.core.model.TeachingLoadModel;
 import com.artech.timetableapp.core.model.TimetableLessonModel;
-import com.artech.timetableapp.core.model.prototype.TeachingLoadPrototype;
-import com.artech.timetableapp.core.model.prototype.TimetableLessonPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class TimetableLessonManager extends DbObjectManager<TimetableLessonModel, TimetableLessonPrototype> implements ITimetableLessonManager {
+public final class TimetableLessonManager extends DbObjectManager<TimetableLessonModel> implements ITimetableLessonManager {
 
-    private final IObjectManager<TeachingLoadModel, TeachingLoadPrototype> teachingLoadManager;
+    private final IObjectManager<TeachingLoadModel> teachingLoadManager;
 
-    public TimetableLessonManager(DatabaseHandle handle, IObjectManager<TeachingLoadModel, TeachingLoadPrototype> teachingLoadManager) throws SQLException {
+    public TimetableLessonManager(DatabaseHandle handle, IObjectManager<TeachingLoadModel> teachingLoadManager) throws SQLException {
         super(handle, "timetable_lessons");
         this.teachingLoadManager = teachingLoadManager;
     }
@@ -49,7 +47,7 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
     }
 
     @Override
-    public boolean tryCreate(TimetableLessonPrototype prototype) {
+    public boolean tryCreate(TimetableLessonModel prototype) {
         try {
             PreparedStatement statement = handle.buildStatement("INSERT INTO timetable_lessons (day_of_week, lesson_number, teaching_load)" +
                     " VALUES (?, ?, ?)");

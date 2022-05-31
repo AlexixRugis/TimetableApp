@@ -2,14 +2,13 @@ package com.artech.timetableapp.database.manager;
 
 import com.artech.timetableapp.core.manager.ITeacherManager;
 import com.artech.timetableapp.core.model.TeacherModel;
-import com.artech.timetableapp.core.model.prototype.TeacherPrototype;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class TeacherManager extends DbObjectManager<TeacherModel, TeacherPrototype> implements ITeacherManager {
+public final class TeacherManager extends DbObjectManager<TeacherModel> implements ITeacherManager {
 
     public TeacherManager(DatabaseHandle handle) throws SQLException {
         super(handle, "teachers");
@@ -42,7 +41,7 @@ public final class TeacherManager extends DbObjectManager<TeacherModel, TeacherP
     }
 
     @Override
-    public boolean tryCreate(TeacherPrototype model) {
+    public boolean tryCreate(TeacherModel model) {
         try {
             PreparedStatement statement = handle.buildStatement("INSERT INTO teachers (first_name, second_name, last_name)" +
                     " VALUES (?, ?, ?)");

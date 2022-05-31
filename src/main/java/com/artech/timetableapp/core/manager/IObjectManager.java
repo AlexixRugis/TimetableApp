@@ -4,11 +4,11 @@ import com.artech.timetableapp.core.model.IModel;
 
 import java.util.Collection;
 
-public interface IObjectManager<T extends IModel, J> {
+public interface IObjectManager<T extends IModel> {
 
     void addUpdateListener(IManagerUpdateListener listener);
     void removeUpdateListener(IManagerUpdateListener listener);
-    boolean tryCreate(J prototype);
+    boolean tryCreate(T prototype);
     T get(Integer id);
     Collection<T> getAll();
     boolean tryUpdate(T model);
