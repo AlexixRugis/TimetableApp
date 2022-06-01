@@ -14,9 +14,6 @@ import java.util.Collection;
 
 public class TeachersController extends ModelListController<TeacherModel> implements IManagerUpdateListener {
 
-    @FXML
-    private ListView list;
-
     public TeachersController(IStorage storage) {
         super(storage, storage.teacherManager());
     }

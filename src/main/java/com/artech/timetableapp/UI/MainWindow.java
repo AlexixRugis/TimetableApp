@@ -2,6 +2,7 @@ package com.artech.timetableapp.UI;
 
 import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Views.View;
+import com.artech.timetableapp.UI.specialities.SpecialitiesView;
 import com.artech.timetableapp.UI.teachers.TeachersView;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.fxml.FXMLLoader;
@@ -42,6 +43,7 @@ public final class MainWindow {
         TabPane pane = (TabPane)scene.lookup("#tab_layout");
 
         addTab(pane, new TeachersView(this.storage));
+        addTab(pane, new SpecialitiesView(this.storage));
     }
 
     private void addTab(TabPane pane, View view) {

@@ -1,6 +1,7 @@
 package com.artech.timetableapp.UI.Views;
 
 import com.artech.timetableapp.core.model.IModel;
+import javafx.event.ActionEvent;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -45,5 +46,14 @@ public abstract class ModelDialog<T extends IModel> {
 
     private void addButtons(Dialog<T> dialog) {
         dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, ButtonType.CANCEL);
+        dialog.getDialogPane().lookupButton(saveButtonType).addEventFilter(
+                ActionEvent.ACTION, event -> {
+                    if (!validate()) {
+                        event.consume();
+                    }
+                }
+        );
     }
+
+    protected abstract boolean validate();
 }

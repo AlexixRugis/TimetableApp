@@ -4,9 +4,13 @@ import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.IModel;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 
 public abstract class ModelListController<T extends IModel> extends Controller{
     private final IObjectManager<T> manager;
+
+    @FXML
+    protected ListView list;
 
     public ModelListController(IStorage storage, IObjectManager<T> manager) {
         super(storage);

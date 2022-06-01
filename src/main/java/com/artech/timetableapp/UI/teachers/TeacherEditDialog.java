@@ -13,7 +13,7 @@ public class TeacherEditDialog extends ModelDialog<TeacherModel> {
 
     @Override
     protected View getView() {
-        return new TeacherEditDialogView();
+        return this.view;
     }
 
     @Override
@@ -36,5 +36,12 @@ public class TeacherEditDialog extends ModelDialog<TeacherModel> {
                 this.view.getSecondName(),
                 this.view.getLastName()
         );
+    }
+
+    @Override
+    protected boolean validate() {
+        return !this.view.getFirstName().isEmpty() &&
+                !this.view.getSecondName().isEmpty() &&
+                !this.view.getLastName().isEmpty();
     }
 }

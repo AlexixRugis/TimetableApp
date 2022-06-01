@@ -13,5 +13,6 @@ module com.artech.timetableapp {
     opens com.artech.timetableapp.UI.Controllers;
     exports com.artech.timetableapp;
     opens com.artech.timetableapp.UI.teachers;
+    opens com.artech.timetableapp.UI.specialities;
     opens com.artech.timetableapp.UI.Views;
 }

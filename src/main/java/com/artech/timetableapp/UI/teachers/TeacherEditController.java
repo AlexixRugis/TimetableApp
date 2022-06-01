@@ -13,6 +13,10 @@ public class TeacherEditController extends ModelEditController<TeacherModel> {
 
     @Override
     protected TeacherModel handleEdit(TeacherModel model) {
-        return new TeacherModel(model.id(), model.firstName(), model.secondName(), "dddf");
+        TeacherModel proto = new TeacherEditDialog().ask(model);
+        if (proto != null)
+            return new TeacherModel(model.id(), proto.firstName(), proto.secondName(), proto.lastName());
+        else
+            return null;
     }
 }

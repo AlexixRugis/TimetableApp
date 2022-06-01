@@ -14,8 +14,8 @@ public abstract class View
         return this.content;
     }
 
-    public Node lookup(String selector) {
+    public <T extends Node> T lookup(String selector, Class<T> type) {
         if (this.content == null) this.content = build();
-        return this.content.lookup(selector);
+        return type.cast(this.content.lookup(selector));
     }
 }

@@ -2,6 +2,7 @@ package com.artech.timetableapp.UI.Controllers;
 
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.IModel;
+import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -22,7 +23,9 @@ public abstract class ModelEditController<T extends IModel> extends Controller{
 
     @FXML
     public void onEdit() {
-        this.manager.tryUpdate(handleEdit(this.model));
+        T upd = handleEdit(this.model);
+        if (upd != null)
+            this.manager.tryUpdate(upd);
     }
 
     @FXML
@@ -40,6 +43,5 @@ public abstract class ModelEditController<T extends IModel> extends Controller{
         System.out.println("delete " + this.model.id());
     }
 
-    //TODO: https://code.makery.ch/blog/javafx-dialogs-official/
     protected abstract T handleEdit(T model);
 }
