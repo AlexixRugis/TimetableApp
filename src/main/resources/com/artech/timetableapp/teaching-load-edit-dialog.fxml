@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane hgap="10.0" prefHeight="177.0" prefWidth="249.0" vgap="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints minWidth="-Infinity" />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+      <RowConstraints />
+    </rowConstraints>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <ComboBox fx:id="teacher" prefWidth="150.0" GridPane.columnIndex="1" />
+    <Label text="Преподаватель" />
+    <ComboBox fx:id="group" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label text="Группа" GridPane.rowIndex="1" />
+    <ComboBox fx:id="subject" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Label layoutX="10.0" layoutY="49.0" text="Предмет" GridPane.rowIndex="2" />
+   <Label text="Часов в неделю" GridPane.rowIndex="3" />
+   <Spinner fx:id="hours_per_week" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+</GridPane>

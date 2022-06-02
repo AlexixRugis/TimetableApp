@@ -30,7 +30,6 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
         this.deleteQuery = "DELETE FROM " + tableName + " WHERE id = ?";
 
         tryCreateTable();
-
     }
 
 
@@ -39,7 +38,7 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
 
     @Override
     public T get(Integer id) {
-        if (id == 0) return null;
+        if (id == null) return null;
 
         try {
             PreparedStatement statement = handle.buildStatement(getQuery);
@@ -108,5 +107,10 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
     @Override
     public void removeUpdateListener(IManagerUpdateListener listener) {
         listeners.remove(listener);
+    }
+
+    protected static Integer getInt(ResultSet resultSet, String column) throws SQLException {
+        int value = resultSet.getInt(column);
+        return resultSet.wasNull() ? null : value;
     }
 }

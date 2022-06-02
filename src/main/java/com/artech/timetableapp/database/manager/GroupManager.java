@@ -38,7 +38,7 @@ public final class GroupManager extends DbObjectManager<GroupModel> implements I
             return new GroupModel(
                     result.getInt("id"),
                     result.getString("name"),
-                    specialityManager.get(result.getInt("speciality")),
+                    specialityManager.get(getInt(result,"speciality")),
                     result.getInt("semester"),
                     result.getInt("num_study_weeks")
             );
@@ -90,4 +90,6 @@ public final class GroupManager extends DbObjectManager<GroupModel> implements I
 
         return false;
     }
+
+
 }

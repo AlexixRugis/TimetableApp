@@ -1,4 +1,4 @@
-package com.artech.timetableapp.UI.groups;
+package com.artech.timetableapp.UI.subjects;
 
 import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Controllers.Controller;
@@ -17,17 +17,20 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
-public class GroupEditDialogView extends FXMLView {
+public class SubjectEditDialogView extends FXMLView {
 
     private final IObjectManager<SpecialityModel> specialityManager;
-
     private TextField name;
     private ComboBox<SpecialityModel> speciality;
     private Spinner<Integer> semester;
-    private Spinner<Integer> numStudyWeeks;
 
-    public GroupEditDialogView(IObjectManager<SpecialityModel> specialityManager) {
+    public SubjectEditDialogView(IObjectManager<SpecialityModel> specialityManager) {
         this.specialityManager = specialityManager;
+    }
+
+    @Override
+    protected URL getFXMLResourceURL() {
+        return TimetableApplication.class.getResource("subject-edit-dialog.fxml");
     }
 
     @Override
@@ -44,15 +47,8 @@ public class GroupEditDialogView extends FXMLView {
         semester = (Spinner<Integer>) build.lookup("#semester");
         semester.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 8, 1));
 
-        numStudyWeeks = (Spinner<Integer>) build.lookup("#num_study_weeks");
-        numStudyWeeks.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 1));
 
         return build;
-    }
-
-    @Override
-    protected URL getFXMLResourceURL() {
-        return TimetableApplication.class.getResource("group-edit-dialog.fxml");
     }
 
     @Override
@@ -62,14 +58,14 @@ public class GroupEditDialogView extends FXMLView {
 
     @Override
     public String getName() {
-        return "Группа";
+        return "Предмет";
     }
 
-    public String getGroupName() {
+    public String getSubjectName() {
         return this.name.getText();
     }
 
-    public void setGroupName(String name) {
+    public void setSubjectName(String name) {
         this.name.setText(name);
     }
 
@@ -95,13 +91,5 @@ public class GroupEditDialogView extends FXMLView {
 
     public Integer getSemester() {
         return this.semester.getValue();
-    }
-
-    public void setNumStudyWeeks(Integer value) {
-        this.numStudyWeeks.getValueFactory().setValue(value);
-    }
-
-    public Integer getNumStudyWeeks() {
-        return this.numStudyWeeks.getValue();
     }
 }

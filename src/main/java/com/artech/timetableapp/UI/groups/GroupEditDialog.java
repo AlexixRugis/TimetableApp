@@ -45,6 +45,6 @@ public class GroupEditDialog extends ModelDialog<GroupModel> {
 
     @Override
     protected boolean validate() {
-        return !this.view.getGroupName().isEmpty();
+        return !this.view.getGroupName().isEmpty() && this.view.getSpeciality() != null;
     }
 }

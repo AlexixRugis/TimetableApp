@@ -5,6 +5,7 @@ import com.artech.timetableapp.core.query.DatabaseHandle;
 import com.artech.timetableapp.core.storage.IStorage;
 import com.artech.timetableapp.database.manager.*;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public final class DbStorage implements IStorage {
@@ -16,6 +17,10 @@ public final class DbStorage implements IStorage {
     private final ITimetableLessonManager timetableLessonManager;
 
     public DbStorage(DatabaseHandle handle) throws SQLException {
+
+        PreparedStatement statement = handle.buildStatement("pragma foreign_keys = on");
+        statement.executeUpdate();
+        statement.close();
 
         this.teacherManager = new TeacherManager(handle);
         this.specialityManager = new SpecialityManager(handle);

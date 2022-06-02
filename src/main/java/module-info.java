@@ -14,5 +14,7 @@ module com.artech.timetableapp {
     opens com.artech.timetableapp.UI.teachers;
     opens com.artech.timetableapp.UI.specialities;
     opens com.artech.timetableapp.UI.groups;
+    opens com.artech.timetableapp.UI.subjects;
+    opens com.artech.timetableapp.UI.teaching_loads;
     opens com.artech.timetableapp.UI.Views;
 }

@@ -39,7 +39,7 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
                     result.getInt("id"),
                     Day.get(result.getInt("dayOfWeek")),
                     result.getInt("lesson_number"),
-                    teachingLoadManager.get(result.getInt("teaching_load"))
+                    teachingLoadManager.get(getInt(result, "teaching_load"))
             );
         } catch (SQLException e) {
             throw new RuntimeException(e);

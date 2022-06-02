@@ -46,9 +46,9 @@ public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel
         try {
             return new TeachingLoadModel(
                     result.getInt("id"),
-                    teacherManager.get(result.getInt("teacher")),
-                    subjectManager.get(result.getInt("subject")),
-                    groupManager.get(result.getInt("group")),
+                    teacherManager.get(getInt(result, "teacher")),
+                    subjectManager.get(getInt(result, "subject")),
+                    groupManager.get(getInt(result, "group")),
                     result.getInt("hours_per_week")
             );
         } catch (SQLException e) {

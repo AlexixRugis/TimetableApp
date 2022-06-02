@@ -4,7 +4,10 @@ import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Views.View;
 import com.artech.timetableapp.UI.groups.GroupsView;
 import com.artech.timetableapp.UI.specialities.SpecialitiesView;
+import com.artech.timetableapp.UI.subjects.SubjectEditView;
+import com.artech.timetableapp.UI.subjects.SubjectsView;
 import com.artech.timetableapp.UI.teachers.TeachersView;
+import com.artech.timetableapp.UI.teaching_loads.TeachingLoadsView;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -45,6 +48,8 @@ public final class MainWindow {
         addTab(pane, new TeachersView(this.storage));
         addTab(pane, new SpecialitiesView(this.storage));
         addTab(pane, new GroupsView(this.storage));
+        addTab(pane, new SubjectsView(this.storage));
+        addTab(pane, new TeachingLoadsView(this.storage));
     }
 
     private void addTab(TabPane pane, View view) {

@@ -36,7 +36,7 @@ public final class SubjectManager extends DbObjectManager<SubjectModel> implemen
             return new SubjectModel(
                     result.getInt("id"),
                     result.getString("name"),
-                    specialityManager.get(result.getInt("speciality")),
+                    specialityManager.get(getInt(result, "speciality")),
                     result.getInt("semester")
             );
         } catch (SQLException e) {
