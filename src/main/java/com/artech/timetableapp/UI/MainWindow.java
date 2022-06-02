@@ -2,6 +2,7 @@ package com.artech.timetableapp.UI;
 
 import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Views.View;
+import com.artech.timetableapp.UI.groups.GroupsView;
 import com.artech.timetableapp.UI.specialities.SpecialitiesView;
 import com.artech.timetableapp.UI.teachers.TeachersView;
 import com.artech.timetableapp.core.storage.IStorage;
@@ -21,11 +22,10 @@ public final class MainWindow {
         this.storage = storage;
     }
 
-    private final String FXML = "main-view.fxml";
-
     public void run(Stage stage) {
+        String FXML = "main-view.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(TimetableApplication.class.getResource(FXML));
-        Scene scene = null;
+        Scene scene;
         try {
             scene = new Scene(fxmlLoader.load(), 1600, 900);
         } catch (IOException e) {
@@ -44,6 +44,7 @@ public final class MainWindow {
 
         addTab(pane, new TeachersView(this.storage));
         addTab(pane, new SpecialitiesView(this.storage));
+        addTab(pane, new GroupsView(this.storage));
     }
 
     private void addTab(TabPane pane, View view) {

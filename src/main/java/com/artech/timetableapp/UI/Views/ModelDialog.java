@@ -15,14 +15,13 @@ public abstract class ModelDialog<T extends IModel> {
     protected abstract T getDialogData();
 
     protected Dialog<T> getDialog(T model) {
-        Dialog<T> dialog = new Dialog<T>();
-
-        if (model != null) {
-            setDialogData(model);
-        }
+        Dialog<T> dialog = new Dialog<>();
 
         dialog.setHeaderText(getHeader());
         dialog.getDialogPane().setContent(getView().getContent());
+        if (model != null) {
+            setDialogData(model);
+        }
         dialog.setResultConverter(buttonType -> {
             if (buttonType == saveButtonType) {
                 return getDialogData();

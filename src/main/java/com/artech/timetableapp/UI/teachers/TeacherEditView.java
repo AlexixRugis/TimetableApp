@@ -14,6 +14,6 @@ public class TeacherEditView extends ModelEditView<TeacherModel> {
 
     @Override
     protected Controller getController() {
-        return new TeacherEditController(this.storage, this.manager, (TeacherModel) this.model);
+        return new TeacherEditController(this.storage, this.manager, this.model);
     }
 }

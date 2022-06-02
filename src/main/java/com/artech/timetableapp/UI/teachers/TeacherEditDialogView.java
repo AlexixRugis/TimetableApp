@@ -3,6 +3,7 @@ package com.artech.timetableapp.UI.teachers;
 import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Controllers.Controller;
 import com.artech.timetableapp.UI.Views.FXMLView;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -18,6 +19,17 @@ public class TeacherEditDialogView extends FXMLView {
     }
 
     @Override
+    protected Node build() {
+        Node build = super.build();
+
+        firstName = (TextField) build.lookup("#first_name");
+        secondName = (TextField) build.lookup("#second_name");
+        lastName = (TextField) build.lookup("#last_name");
+
+        return build;
+    }
+
+    @Override
     protected Controller getController() {
         return null;
     }
@@ -28,26 +40,26 @@ public class TeacherEditDialogView extends FXMLView {
     }
 
     public void setFirstName(String name) {
-        lookup("#first_name", TextField.class).setText(name);
+        firstName.setText(name);
     }
 
     public String getFirstName() {
-        return lookup("#first_name", TextField.class).getText();
+        return firstName.getText();
     }
 
     public void setSecondName(String name) {
-        lookup("#second_name", TextField.class).setText(name);
+        secondName.setText(name);
     }
 
     public String getSecondName() {
-        return lookup("#second_name", TextField.class).getText();
+        return secondName.getText();
     }
 
     public void setLastName(String name) {
-        lookup("#last_name", TextField.class).setText(name);
+        lastName.setText(name);
     }
 
     public String getLastName() {
-        return lookup("#last_name", TextField.class).getText();
+        return lastName.getText();
     }
 }
