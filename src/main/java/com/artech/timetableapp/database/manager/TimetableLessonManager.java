@@ -26,7 +26,7 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
                 "id INTEGER PRIMARY KEY," +
                 "day_of_week INTEGER NOT NULL," +
                 "lesson_number INTEGER NOT NULL," +
-                "teaching_load INTEGER REFERENCES teaching_loads(id) ON DELETE SET NULL" +
+                "teaching_load INTEGER REFERENCES teaching_loads(id) ON DELETE CASCADE" +
                 ")");
         statement.executeUpdate();
         statement.close();

@@ -11,6 +11,9 @@ import com.artech.timetableapp.core.query.DatabaseHandle;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel> implements ITeachingLoadManager {
 
@@ -98,5 +101,28 @@ public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel
         }
 
         return false;
+    }
+
+    @Override
+    public Collection<TeachingLoadModel> getByGroup(GroupModel group) {
+        List<TeachingLoadModel> models = new ArrayList<>();
+        if (group == null) return models;
+
+        try {
+            PreparedStatement statement = handle.buildStatement("SELECT * FROM teaching_loads WHERE `group` = ?");
+            statement.setInt(1, group.id());
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()) {
+                models.add(build(result));
+            }
+
+            result.close();
+        }
+        catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return models;
     }
 }
