@@ -3,6 +3,7 @@ package com.artech.timetableapp.UI.timetable;
 import com.artech.timetableapp.UI.Views.View;
 import com.artech.timetableapp.core.model.Day;
 import com.artech.timetableapp.core.model.GroupModel;
+import com.artech.timetableapp.core.model.TeachingLoadModel;
 import com.artech.timetableapp.core.model.TimetableLessonModel;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.geometry.Insets;
@@ -10,7 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
 
 public class TimetableLessonHolder extends View{
     private final IStorage storage;
@@ -19,6 +20,8 @@ public class TimetableLessonHolder extends View{
     private final Integer lesson;
 
     private TimetableLessonModel timetableLesson;
+
+    private Pane root;
 
     public TimetableLessonHolder(IStorage storage, GroupModel group, Day day, Integer lesson) {
         this.storage = storage;
@@ -29,10 +32,12 @@ public class TimetableLessonHolder extends View{
 
     @Override
     protected Node build() {
+        root = new Pane();
         Label label = new Label(String.valueOf(this.storage.timetableLessonManager().getData(this.group, this.day, this.lesson)));
+        root.getChildren().add(label);
         label.setPadding(new Insets(20));
 
-        label.setOnDragOver(event -> {
+        root.setOnDragOver(event -> {
             if (event.getGestureSource() != label &&
                     event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.MOVE);
@@ -40,18 +45,16 @@ public class TimetableLessonHolder extends View{
 
             event.consume();
         });
-        label.setOnDragEntered(event -> {
+        root.setOnDragEntered(event -> {
             if (event.getGestureSource() != label &&
                     event.getDragboard().hasString()) {
-                label.setTextFill(Color.GREEN);
             }
             event.consume();
         });
-        label.setOnDragExited(event -> {
-            label.setTextFill(Color.BLACK);
+        root.setOnDragExited(event -> {
             event.consume();
         });
-        label.setOnDragDropped(event -> {
+        root.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
@@ -73,11 +76,20 @@ public class TimetableLessonHolder extends View{
             event.consume();
         });
 
-        return label;
+        return root;
     }
 
     @Override
     public String getName() {
         return "Предмет";
+    }
+
+    public void setDragModel(TeachingLoadModel model) {
+        if (model != null) {
+            root.setStyle("-fx-background-color: green;");
+        }
+        else {
+            root.setStyle("-fx-background-color: white;");
+        }
     }
 }
