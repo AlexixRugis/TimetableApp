@@ -2,6 +2,7 @@ package com.artech.timetableapp.UI.timetable;
 
 import com.artech.timetableapp.UI.Views.View;
 import com.artech.timetableapp.core.model.Day;
+import com.artech.timetableapp.core.model.GroupModel;
 import com.artech.timetableapp.core.model.TimetableLessonModel;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.geometry.Insets;
@@ -13,20 +14,22 @@ import javafx.scene.paint.Color;
 
 public class TimetableLessonHolder extends View{
     private final IStorage storage;
+    private final GroupModel group;
     private final Day day;
     private final Integer lesson;
 
     private TimetableLessonModel timetableLesson;
 
-    public TimetableLessonHolder(IStorage storage, Day day, Integer lesson) {
+    public TimetableLessonHolder(IStorage storage, GroupModel group, Day day, Integer lesson) {
         this.storage = storage;
+        this.group = group;
         this.day = day;
         this.lesson = lesson;
     }
 
     @Override
     protected Node build() {
-        Label label = new Label(day.name() + " - " + lesson);
+        Label label = new Label(String.valueOf(this.storage.timetableLessonManager().getData(this.group, this.day, this.lesson)));
         label.setPadding(new Insets(20));
 
         label.setOnDragOver(event -> {
@@ -60,7 +63,9 @@ public class TimetableLessonHolder extends View{
                     id = null;
                 }
 
-                timetableLesson = new TimetableLessonModel(0, this.day, this.lesson, this.storage.teachingLoadManager().get(id));
+                timetableLesson = new TimetableLessonModel(0, this.day, this.lesson, this.storage.teachingLoadManager().get(id), this.group);
+                this.storage.timetableLessonManager().setData(timetableLesson);
+
                 label.setText(timetableLesson.toString());
                 success = true;
             }

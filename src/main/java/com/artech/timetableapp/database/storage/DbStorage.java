@@ -27,7 +27,7 @@ public final class DbStorage implements IStorage {
         this.subjectManager = new SubjectManager(handle, this.specialityManager);
         this.groupManager = new GroupManager(handle, this.specialityManager);
         this.teachingLoadManager = new TeachingLoadManager(handle, this.teacherManager, this.subjectManager, this.groupManager);
-        this.timetableLessonManager = new TimetableLessonManager(handle, this.teachingLoadManager);
+        this.timetableLessonManager = new TimetableLessonManager(handle, this.teachingLoadManager, this.groupManager);
     }
 
 

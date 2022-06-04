@@ -62,7 +62,7 @@ public class GroupTimetableController extends Controller {
             dayName.setPadding(new Insets(40));
             tableGrid.add(dayName, i, 0);
             for (int j = 1; j < 6; j++) {
-                tableGrid.add(new TimetableLessonHolder(this.storage, days[i], j).getContent(), i, j);
+                tableGrid.add(new TimetableLessonHolder(this.storage, this.model, days[i], j).getContent(), i, j);
             }
         }
     }
