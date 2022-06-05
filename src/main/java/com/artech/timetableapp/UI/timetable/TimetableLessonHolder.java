@@ -13,7 +13,14 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 
-public class TimetableLessonHolder extends View{
+import java.util.Collection;
+import java.util.Objects;
+
+public class TimetableLessonHolder extends View {
+
+    private final String red = "-fx-background-color: #f97777;";
+    private final String green = "-fx-background-color: #78fabf;";
+
     private final IStorage storage;
     private final GroupModel group;
     private final Day day;
@@ -22,6 +29,7 @@ public class TimetableLessonHolder extends View{
     private TimetableLessonModel timetableLesson;
 
     private Pane root;
+    private boolean canDrop;
 
     public TimetableLessonHolder(IStorage storage, GroupModel group, Day day, Integer lesson) {
         this.storage = storage;
@@ -39,19 +47,11 @@ public class TimetableLessonHolder extends View{
 
         root.setOnDragOver(event -> {
             if (event.getGestureSource() != label &&
-                    event.getDragboard().hasString()) {
+                    event.getDragboard().hasString() &&
+                    canDrop) {
                 event.acceptTransferModes(TransferMode.MOVE);
             }
 
-            event.consume();
-        });
-        root.setOnDragEntered(event -> {
-            if (event.getGestureSource() != label &&
-                    event.getDragboard().hasString()) {
-            }
-            event.consume();
-        });
-        root.setOnDragExited(event -> {
             event.consume();
         });
         root.setOnDragDropped(event -> {
@@ -84,12 +84,30 @@ public class TimetableLessonHolder extends View{
         return "Предмет";
     }
 
-    public void setDragModel(TeachingLoadModel model) {
-        if (model != null) {
-            root.setStyle("-fx-background-color: green;");
-        }
-        else {
+    public void setDragModel(TeachingLoadModel loadModel) {
+        if (loadModel == null) {
+            canDrop = false;
             root.setStyle("-fx-background-color: white;");
+            return;
         }
+
+        if (loadModel.teacher() == null) {
+            canDrop = false;
+            root.setStyle(red);
+            return;
+        }
+
+        Collection<TimetableLessonModel> models = this.storage.timetableLessonManager().getData(loadModel.teacher(), day, lesson);
+
+        for (TimetableLessonModel model : models) {
+            if (!Objects.equals(model.group().id(), group.id())) {
+                canDrop = false;
+                root.setStyle(red);
+                return;
+            }
+        }
+
+        canDrop = true;
+        root.setStyle(green);
     }
 }

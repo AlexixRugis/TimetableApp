@@ -1,16 +1,17 @@
 package com.artech.timetableapp.database.manager;
 
+import com.artech.timetableapp.UI.timetable.TimetableLessonHolder;
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.manager.ITimetableLessonManager;
-import com.artech.timetableapp.core.model.Day;
-import com.artech.timetableapp.core.model.GroupModel;
-import com.artech.timetableapp.core.model.TeachingLoadModel;
-import com.artech.timetableapp.core.model.TimetableLessonModel;
+import com.artech.timetableapp.core.model.*;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public final class TimetableLessonManager extends DbObjectManager<TimetableLessonModel> implements ITimetableLessonManager {
 
@@ -132,5 +133,30 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
         }
 
         return null;
+    }
+
+    public Collection<TimetableLessonModel> getData(TeacherModel model, Day day, Integer lesson) {
+        List<TimetableLessonModel> models = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = handle.buildStatement("SELECT timetable_lessons.id, day_of_week, lesson_number, teaching_load, timetable_lessons.`group` " +
+                    "FROM timetable_lessons, teaching_loads WHERE timetable_lessons.teaching_load = teaching_loads.id AND " +
+                    "day_of_week = ? AND lesson_number = ? AND teaching_loads.teacher = ?");
+            statement.setInt(1, day.getIndex());
+            statement.setInt(2, lesson);
+            statement.setInt(3, model.id());
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()) {
+                models.add(build(result));
+            }
+
+            result.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return models;
     }
 }

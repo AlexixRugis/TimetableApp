@@ -29,7 +29,10 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="f053770f-a5f4-4961-a615-03a3db2c5ed1">
-      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[drop]]></console>
+      <console name="Connection" type="STANDARD" schema="main" session="Main"><![CDATA[select * from teachers;
+
+SELECT timetable_lessons.id, day_of_week, lesson_number, teaching_load FROM timetable_lessons, teaching_loads WHERE timetable_lessons.teaching_load = teaching_loads.id AND
+day_of_week = 1 AND lesson_number = 1 AND teaching_loads.teacher = 1]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
