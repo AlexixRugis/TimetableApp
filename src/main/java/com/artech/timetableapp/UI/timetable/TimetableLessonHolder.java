@@ -1,34 +1,33 @@
 package com.artech.timetableapp.UI.timetable;
 
-import com.artech.timetableapp.UI.Views.View;
+import com.artech.timetableapp.TimetableApplication;
+import com.artech.timetableapp.UI.Controllers.Controller;
+import com.artech.timetableapp.UI.Views.FXMLView;
 import com.artech.timetableapp.core.model.Day;
 import com.artech.timetableapp.core.model.GroupModel;
 import com.artech.timetableapp.core.model.TeachingLoadModel;
 import com.artech.timetableapp.core.model.TimetableLessonModel;
 import com.artech.timetableapp.core.storage.IStorage;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 
+import java.net.URL;
 import java.util.Collection;
 import java.util.Objects;
 
-public class TimetableLessonHolder extends View {
-
-    private final String red = "-fx-background-color: #f97777;";
-    private final String green = "-fx-background-color: #78fabf;";
+public class TimetableLessonHolder extends FXMLView {
 
     private final IStorage storage;
     private final GroupModel group;
     private final Day day;
     private final Integer lesson;
-
-    private TimetableLessonModel timetableLesson;
-
-    private Pane root;
+    private Pane pane;
+    private Label label;
+    private Button button;
     private boolean canDrop;
 
     public TimetableLessonHolder(IStorage storage, GroupModel group, Day day, Integer lesson) {
@@ -40,12 +39,15 @@ public class TimetableLessonHolder extends View {
 
     @Override
     protected Node build() {
-        root = new Pane();
-        Label label = new Label(String.valueOf(this.storage.timetableLessonManager().getData(this.group, this.day, this.lesson)));
-        root.getChildren().add(label);
-        label.setPadding(new Insets(20));
+        Node node = super.build();
 
-        root.setOnDragOver(event -> {
+        pane = (Pane) node.lookup("#pane");
+        label = (Label) node.lookup("#label");
+        button = (Button) node.lookup("#button");
+
+        button.setOnAction(event -> setModel(null));
+
+        pane.setOnDragOver(event -> {
             if (event.getGestureSource() != label &&
                     event.getDragboard().hasString() &&
                     canDrop) {
@@ -54,7 +56,7 @@ public class TimetableLessonHolder extends View {
 
             event.consume();
         });
-        root.setOnDragDropped(event -> {
+        pane.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
             if (db.hasString()) {
@@ -66,17 +68,27 @@ public class TimetableLessonHolder extends View {
                     id = null;
                 }
 
-                timetableLesson = new TimetableLessonModel(0, this.day, this.lesson, this.storage.teachingLoadManager().get(id), this.group);
-                this.storage.timetableLessonManager().setData(timetableLesson);
+                setModel(new TimetableLessonModel(0, this.day, this.lesson, this.storage.teachingLoadManager().get(id), this.group));
 
-                label.setText(timetableLesson.toString());
                 success = true;
             }
             event.setDropCompleted(success);
             event.consume();
         });
 
-        return root;
+        setModel(this.storage.timetableLessonManager().getData(this.group, this.day, this.lesson));
+
+        return pane;
+    }
+
+    @Override
+    protected URL getFXMLResourceURL() {
+        return TimetableApplication.class.getResource("timetable-holder.fxml");
+    }
+
+    @Override
+    protected Controller getController() {
+        return null;
     }
 
     @Override
@@ -87,13 +99,14 @@ public class TimetableLessonHolder extends View {
     public void setDragModel(TeachingLoadModel loadModel) {
         if (loadModel == null) {
             canDrop = false;
-            root.setStyle("-fx-background-color: white;");
+            pane.setStyle("-fx-background-color: white;");
             return;
         }
 
+        String red = "-fx-background-color: #f97777;";
         if (loadModel.teacher() == null) {
             canDrop = false;
-            root.setStyle(red);
+            pane.setStyle(red);
             return;
         }
 
@@ -102,12 +115,28 @@ public class TimetableLessonHolder extends View {
         for (TimetableLessonModel model : models) {
             if (!Objects.equals(model.group().id(), group.id())) {
                 canDrop = false;
-                root.setStyle(red);
+                pane.setStyle(red);
                 return;
             }
         }
 
         canDrop = true;
-        root.setStyle(green);
+        String green = "-fx-background-color: #78fabf;";
+        pane.setStyle(green);
+    }
+
+    private void setModel(TimetableLessonModel model) {
+        if (model == null) {
+            this.storage.timetableLessonManager().clearData(this.group, this.day, this.lesson);
+
+            label.setText("");
+            button.setVisible(false);
+
+            return;
+        }
+
+        this.storage.timetableLessonManager().setData(model);
+        label.setText(String.valueOf(model));
+        button.setVisible(true);
     }
 }

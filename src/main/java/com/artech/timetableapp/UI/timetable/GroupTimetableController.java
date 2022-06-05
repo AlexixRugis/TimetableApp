@@ -14,6 +14,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +27,7 @@ public class GroupTimetableController extends Controller {
     private final GroupModel model;
 
     @FXML
-    private Label infoText;
+    private Text infoText;
 
     @FXML
     private ListView subjectsList;
@@ -40,14 +45,28 @@ public class GroupTimetableController extends Controller {
     @FXML
     private void initialize() {
         this.storage.teachingLoadManager().addUpdateListener(this::updateSubjectData);
+        this.storage.timetableLessonManager().addUpdateListener(this::updateTimetableData);
 
         this.infoText.setText(this.model.name());
         setupGrid();
         updateSubjectData();
     }
 
+
     private void updateSubjectData() {
         setSubjects(this.storage.teachingLoadManager().getByGroup(this.model));
+    }
+    private void updateTimetableData() {
+        Integer allHours = this.storage.timetableLessonManager().getHours(this.model);
+        boolean valid = false;
+        this.infoText.setText("Заполнено часов: " + allHours + "/36");
+
+        if (allHours <= 36) {
+            valid = true;
+        }
+
+        this.infoText.setFont(Font.font("Verdana", FontWeight.THIN, FontPosture.REGULAR, 14));
+        this.infoText.setStroke(valid ? Color.BLACK : Color.RED);
     }
 
     private void setSubjects(Collection<TeachingLoadModel> models) {

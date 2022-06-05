@@ -1,6 +1,5 @@
 package com.artech.timetableapp.database.manager;
 
-import com.artech.timetableapp.UI.timetable.TimetableLessonHolder;
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.manager.ITimetableLessonManager;
 import com.artech.timetableapp.core.model.*;
@@ -110,6 +109,7 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
             statement.setInt(2, lesson);
             statement.setInt(3, group.id());
             statement.executeUpdate();
+            handleUpdate();
             statement.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -158,5 +158,35 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
         }
 
         return models;
+    }
+
+    @Override
+    public Integer getHours(GroupModel group) {
+        try {
+            PreparedStatement statement = handle.buildStatement("SELECT COUNT(*) FROM timetable_lessons WHERE `group` = ?");
+            statement.setInt(1, group.id());
+            ResultSet result = statement.executeQuery();
+            Integer count = getInt(result, "COUNT(*)");
+            result.close();
+            return count;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public Integer getHours(TeachingLoadModel teachingLoad) {
+        try {
+            PreparedStatement statement = handle.buildStatement("SELECT COUNT(*) FROM timetable_lessons WHERE teaching_load = ?");
+            statement.setInt(1, teachingLoad.id());
+            ResultSet result = statement.executeQuery();
+            Integer count = getInt(result, "COUNT(*)");
+            result.close();
+            return count;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
