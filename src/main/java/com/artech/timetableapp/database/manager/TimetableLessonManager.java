@@ -135,6 +135,29 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
         return null;
     }
 
+    @Override
+    public Collection<TimetableLessonModel> getData(GroupModel group) {
+        List<TimetableLessonModel> models = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = handle.buildStatement("SELECT * " +
+                    "FROM timetable_lessons WHERE `group` = ?");
+            statement.setInt(1, group.id());
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()) {
+                models.add(build(result));
+            }
+
+            result.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return models;
+    }
+
     public Collection<TimetableLessonModel> getData(TeacherModel model, Day day, Integer lesson) {
         List<TimetableLessonModel> models = new ArrayList<>();
 

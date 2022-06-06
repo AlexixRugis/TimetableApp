@@ -20,19 +20,19 @@ import java.util.Collection;
 import java.util.Objects;
 
 public class TimetableLessonHolder extends FXMLView {
-
-    private final IStorage storage;
-    private final GroupModel group;
+    private final GroupTimetableController timetableController;
+    private final TimetableLessonModel lessonModel;
     private final Day day;
     private final Integer lesson;
+
     private Pane pane;
     private Label label;
     private Button button;
     private boolean canDrop;
 
-    public TimetableLessonHolder(IStorage storage, GroupModel group, Day day, Integer lesson) {
-        this.storage = storage;
-        this.group = group;
+    public TimetableLessonHolder(GroupTimetableController controller, TimetableLessonModel lessonModel, Day day, Integer lesson) {
+        this.timetableController = controller;
+        this.lessonModel = lessonModel;
         this.day = day;
         this.lesson = lesson;
     }
@@ -45,7 +45,9 @@ public class TimetableLessonHolder extends FXMLView {
         label = (Label) node.lookup("#label");
         button = (Button) node.lookup("#button");
 
-        button.setOnAction(event -> setModel(null));
+        button.setOnAction(event -> {
+            this.timetableController.clearData(this.day, this.lesson);
+        });
 
         pane.setOnDragOver(event -> {
             if (event.getGestureSource() != label &&
@@ -67,16 +69,14 @@ public class TimetableLessonHolder extends FXMLView {
                 catch (NumberFormatException e) {
                     id = null;
                 }
-
-                setModel(new TimetableLessonModel(0, this.day, this.lesson, this.storage.teachingLoadManager().get(id), this.group));
-
+                this.timetableController.setData(id, this.day, this.lesson);
                 success = true;
             }
             event.setDropCompleted(success);
             event.consume();
         });
 
-        setModel(this.storage.timetableLessonManager().getData(this.group, this.day, this.lesson));
+        setModel(this.lessonModel);
 
         return pane;
     }
@@ -110,14 +110,10 @@ public class TimetableLessonHolder extends FXMLView {
             return;
         }
 
-        Collection<TimetableLessonModel> models = this.storage.timetableLessonManager().getData(loadModel.teacher(), day, lesson);
-
-        for (TimetableLessonModel model : models) {
-            if (!Objects.equals(model.group().id(), group.id())) {
-                canDrop = false;
-                pane.setStyle(red);
-                return;
-            }
+        if (this.timetableController.hasData(loadModel.teacher(), this.day, this.lesson)) {
+            canDrop = false;
+            pane.setStyle(red);
+            return;
         }
 
         canDrop = true;
@@ -127,15 +123,12 @@ public class TimetableLessonHolder extends FXMLView {
 
     private void setModel(TimetableLessonModel model) {
         if (model == null) {
-            this.storage.timetableLessonManager().clearData(this.group, this.day, this.lesson);
-
             label.setText("");
             button.setVisible(false);
-
             return;
         }
 
-        this.storage.timetableLessonManager().setData(model);
+
         label.setText(String.valueOf(model));
         button.setVisible(true);
     }

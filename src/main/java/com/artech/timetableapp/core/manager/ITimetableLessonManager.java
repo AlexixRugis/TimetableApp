@@ -8,6 +8,7 @@ public interface ITimetableLessonManager extends IObjectManager<TimetableLessonM
     void setData(TimetableLessonModel model);
     void clearData(GroupModel group, Day day, Integer lesson);
     TimetableLessonModel getData(GroupModel group, Day day, Integer lesson);
+    Collection<TimetableLessonModel> getData(GroupModel group);
     Collection<TimetableLessonModel> getData(TeacherModel teacherModel, Day day, Integer lesson);
 
     Integer getHours(GroupModel group);

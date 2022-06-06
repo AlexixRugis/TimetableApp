@@ -12,8 +12,10 @@ import java.sql.SQLException;
 
 public final class TimetableApplication extends Application implements IApplication {
 
+    private static TimetableApplication instance;
     private final String databasePath;
     private IStorage storage;
+    private Stage primaryStage;
 
     public TimetableApplication() {
         this.databasePath = "sqlite.db";
@@ -34,6 +36,7 @@ public final class TimetableApplication extends Application implements IApplicat
     }
 
     private void createUI(Stage stage) {
+        primaryStage = stage;
         MainWindow window = new MainWindow(this.storage);
         window.run(stage);
     }
@@ -63,5 +66,15 @@ public final class TimetableApplication extends Application implements IApplicat
     @Override
     public IStorage getStorage() {
         return this.storage;
+    }
+
+    @Override
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public static TimetableApplication getInstance() {
+        if (instance == null) instance = new TimetableApplication();
+        return instance;
     }
 }

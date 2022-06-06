@@ -13,4 +13,6 @@ public interface IObjectManager<T extends IModel> {
     Collection<T> getAll();
     boolean tryUpdate(T model);
     boolean tryDelete(T model);
+
+    void clearAllData();
 }

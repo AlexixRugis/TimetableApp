@@ -1,6 +1,7 @@
 package com.artech.timetableapp.UI.teachers;
 
 import com.artech.timetableapp.UI.Controllers.ModelListController;
+import com.artech.timetableapp.UI.importing.ImportingActionDialog;
 import com.artech.timetableapp.core.manager.IManagerUpdateListener;
 import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.storage.IStorage;
@@ -22,6 +23,12 @@ public class TeachersController extends ModelListController<TeacherModel> implem
     @Override
     public void onUpdate() {
         updateData();
+    }
+
+    @Override
+    protected void handleImport() {
+        ImportingActionDialog dialog = new TeachersImportDialog(this.storage);
+        dialog.ask();
     }
 
     @Override

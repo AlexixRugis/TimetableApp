@@ -1,10 +1,7 @@
 package com.artech.timetableapp.UI.timetable;
 
 import com.artech.timetableapp.UI.Controllers.Controller;
-import com.artech.timetableapp.core.manager.IManagerUpdateListener;
-import com.artech.timetableapp.core.model.Day;
-import com.artech.timetableapp.core.model.GroupModel;
-import com.artech.timetableapp.core.model.TeachingLoadModel;
+import com.artech.timetableapp.core.model.*;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,16 +12,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 public class GroupTimetableController extends Controller {
-    private final GroupModel model;
+    private final GroupModel groupModel;
 
     @FXML
     private Text infoText;
@@ -35,11 +30,11 @@ public class GroupTimetableController extends Controller {
     @FXML
     private GridPane tableGrid;
 
-    private ArrayList<TimetableLessonHolder> timetable;
+    private final ArrayList<TimetableLessonHolder> timetable = new ArrayList<>();
 
     public GroupTimetableController(IStorage storage, GroupModel model) {
         super(storage);
-        this.model = model;
+        this.groupModel = model;
     }
 
     @FXML
@@ -47,17 +42,18 @@ public class GroupTimetableController extends Controller {
         this.storage.teachingLoadManager().addUpdateListener(this::updateSubjectData);
         this.storage.timetableLessonManager().addUpdateListener(this::updateTimetableData);
 
-        this.infoText.setText(this.model.name());
-        setupGrid();
-        updateSubjectData();
+        updateTimetableData();
     }
 
 
     private void updateSubjectData() {
-        setSubjects(this.storage.teachingLoadManager().getByGroup(this.model));
+        setSubjects(this.storage.teachingLoadManager().getByGroup(this.groupModel));
     }
     private void updateTimetableData() {
-        Integer allHours = this.storage.timetableLessonManager().getHours(this.model);
+        updateSubjectData();
+        updateGrid();
+
+        Integer allHours = this.storage.timetableLessonManager().getHours(this.groupModel);
         boolean valid = false;
         this.infoText.setText("Заполнено часов: " + allHours + "/36");
 
@@ -65,14 +61,13 @@ public class GroupTimetableController extends Controller {
             valid = true;
         }
 
-        this.infoText.setFont(Font.font("Verdana", FontWeight.THIN, FontPosture.REGULAR, 14));
-        this.infoText.setStroke(valid ? Color.BLACK : Color.RED);
+        this.infoText.setFill(valid ? Color.BLACK : Color.RED);
     }
 
     private void setSubjects(Collection<TeachingLoadModel> models) {
         ObservableList<Node> loads = FXCollections.observableArrayList();
         for (TeachingLoadModel model : models) {
-            DraggableTeachingLoad draggable = new DraggableTeachingLoad(model);
+            DraggableTeachingLoad draggable = new DraggableTeachingLoad(this.storage, model);
             draggable.setOnDragBegin(this::updateDragState);
             draggable.setOnEndDrag((dragModel) -> updateDragState(null));
             loads.add(draggable.getContent());
@@ -86,20 +81,54 @@ public class GroupTimetableController extends Controller {
         }
     }
 
-    private void setupGrid() {
-        timetable = new ArrayList<>();
+    private void updateGrid() {
+        Collection<TimetableLessonModel> lessons = this.storage.timetableLessonManager().getData(this.groupModel);
         Day[] days = {Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday, Day.Friday, Day.Saturday};
 
-
+        tableGrid.getChildren().clear();
+        timetable.clear();
         for (int i = 0; i < days.length; i++) {
             Label dayName = new Label(days[i].name());
             dayName.setPadding(new Insets(40));
             tableGrid.add(dayName, i, 0);
             for (int j = 1; j < 7; j++) {
-                TimetableLessonHolder holder = new TimetableLessonHolder(this.storage, this.model, days[i], j);
+                TimetableLessonHolder holder = new TimetableLessonHolder(this, getLessonModel(lessons, days[i], j), days[i], j);
                 timetable.add(holder);
                 tableGrid.add(holder.getContent(), i, j);
             }
         }
+    }
+
+    private TimetableLessonModel getLessonModel(Collection<TimetableLessonModel> models, Day day, Integer lesson) {
+        for (TimetableLessonModel lessonModel : models) {
+            if (lessonModel.day() == day && Objects.equals(lessonModel.lessonNumber(), lesson)) {
+                return lessonModel;
+            }
+        }
+
+        return null;
+    }
+
+    public Boolean hasData(TeacherModel teacher, Day day, Integer lesson) {
+        Collection<TimetableLessonModel> models = this.storage.timetableLessonManager().getData(teacher, day, lesson);
+
+        boolean has = false;
+        for (TimetableLessonModel model : models) {
+            if (!Objects.equals(model.group().id(), this.groupModel.id())) {
+                has = true;
+                break;
+            }
+        }
+
+        return has;
+    }
+
+    public void setData(Integer teachingLoadId, Day day, Integer lesson) {
+        TimetableLessonModel model = new TimetableLessonModel(0, day, lesson, this.storage.teachingLoadManager().get(teachingLoadId), this.groupModel);
+        this.storage.timetableLessonManager().setData(model);
+    }
+
+    public void clearData(Day day, Integer lesson) {
+        this.storage.timetableLessonManager().clearData(this.groupModel, day, lesson);
     }
 }

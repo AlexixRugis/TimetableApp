@@ -1,6 +1,7 @@
 package com.artech.timetableapp.UI.groups;
 
 import com.artech.timetableapp.UI.Controllers.ModelListController;
+import com.artech.timetableapp.UI.importing.ImportingActionDialog;
 import com.artech.timetableapp.core.manager.IManagerUpdateListener;
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.GroupModel;
@@ -11,6 +12,12 @@ import javafx.scene.Node;
 public class GroupsController extends ModelListController<GroupModel> implements IManagerUpdateListener {
     public GroupsController(IStorage storage, IObjectManager<GroupModel> manager) {
         super(storage, manager);
+    }
+
+    @Override
+    protected void handleImport() {
+        ImportingActionDialog dialog = new GroupImportDialog(this.storage);
+        dialog.ask();
     }
 
     @FXML

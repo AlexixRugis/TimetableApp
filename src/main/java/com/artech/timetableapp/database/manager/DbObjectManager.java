@@ -21,6 +21,7 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
     private final String getQuery;
     private final String getAllQuery;
     private final String deleteQuery;
+    private final String clearQuery;
 
     public DbObjectManager(DatabaseHandle handle, String tableName) throws SQLException {
         this.handle = handle;
@@ -28,6 +29,7 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
         this.getQuery = "SELECT * FROM " + tableName + " WHERE id = ? LIMIT 1";
         this.getAllQuery = "SELECT * FROM " + tableName;
         this.deleteQuery = "DELETE FROM " + tableName + " WHERE id = ?";
+        this.clearQuery = "DELETE FROM " + tableName;
 
         tryCreateTable();
     }
@@ -91,6 +93,19 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
         }
 
         return false;
+    }
+
+    @Override
+    public void clearAllData() {
+        try {
+            PreparedStatement statement = handle.buildStatement(clearQuery);
+            statement.executeUpdate();
+            statement.close();
+
+            handleUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     protected void handleUpdate() {

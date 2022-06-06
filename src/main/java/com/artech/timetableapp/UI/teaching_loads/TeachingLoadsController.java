@@ -1,6 +1,7 @@
 package com.artech.timetableapp.UI.teaching_loads;
 
 import com.artech.timetableapp.UI.Controllers.ModelListController;
+import com.artech.timetableapp.UI.importing.ImportingActionDialog;
 import com.artech.timetableapp.core.manager.IManagerUpdateListener;
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.TeachingLoadModel;
@@ -11,6 +12,12 @@ import javafx.scene.Node;
 public class TeachingLoadsController extends ModelListController<TeachingLoadModel> implements IManagerUpdateListener {
     public TeachingLoadsController(IStorage storage, IObjectManager<TeachingLoadModel> manager) {
         super(storage, manager);
+    }
+
+    @Override
+    protected void handleImport() {
+        ImportingActionDialog dialog = new TeachingLoadImportDialog(this.storage);
+        dialog.ask();
     }
 
     @FXML

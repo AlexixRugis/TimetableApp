@@ -1,6 +1,7 @@
 package com.artech.timetableapp.UI.specialities;
 
 import com.artech.timetableapp.UI.Controllers.ModelListController;
+import com.artech.timetableapp.UI.importing.ImportingActionDialog;
 import com.artech.timetableapp.core.manager.IManagerUpdateListener;
 import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.SpecialityModel;
@@ -12,6 +13,12 @@ public class SpecialitiesController extends ModelListController<SpecialityModel>
 
     public SpecialitiesController(IStorage storage, IObjectManager<SpecialityModel> manager) {
         super(storage, manager);
+    }
+
+    @Override
+    protected void handleImport() {
+        ImportingActionDialog dialog = new SpecialitiesImportDialog(this.storage);
+        dialog.ask();
     }
 
     @FXML

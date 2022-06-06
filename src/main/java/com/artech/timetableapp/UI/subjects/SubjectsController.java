@@ -1,6 +1,8 @@
 package com.artech.timetableapp.UI.subjects;
 
 import com.artech.timetableapp.UI.Controllers.ModelListController;
+import com.artech.timetableapp.UI.groups.GroupImportDialog;
+import com.artech.timetableapp.UI.importing.ImportingActionDialog;
 import com.artech.timetableapp.UI.specialities.SpecialityEditView;
 import com.artech.timetableapp.core.manager.IManagerUpdateListener;
 import com.artech.timetableapp.core.manager.IObjectManager;
@@ -17,6 +19,12 @@ import java.util.Collection;
 public class SubjectsController extends ModelListController<SubjectModel> implements IManagerUpdateListener {
     public SubjectsController(IStorage storage, IObjectManager<SubjectModel> manager) {
         super(storage, manager);
+    }
+
+    @Override
+    protected void handleImport() {
+        ImportingActionDialog dialog = new SubjectImportDialog(this.storage);
+        dialog.ask();
     }
 
     @FXML
