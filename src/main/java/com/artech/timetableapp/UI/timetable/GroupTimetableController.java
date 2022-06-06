@@ -25,7 +25,7 @@ public class GroupTimetableController extends Controller {
     private Text infoText;
 
     @FXML
-    private ListView subjectsList;
+    private ListView<Node> subjectsList;
 
     @FXML
     private GridPane tableGrid;
@@ -42,6 +42,7 @@ public class GroupTimetableController extends Controller {
         this.storage.teachingLoadManager().addUpdateListener(this::updateSubjectData);
         this.storage.timetableLessonManager().addUpdateListener(this::updateTimetableData);
 
+        setupGrid();
         updateTimetableData();
     }
 
@@ -51,7 +52,11 @@ public class GroupTimetableController extends Controller {
     }
     private void updateTimetableData() {
         updateSubjectData();
-        updateGrid();
+
+        Collection<TimetableLessonModel> lessons = this.storage.timetableLessonManager().getData(this.groupModel);
+        for (TimetableLessonHolder holder : timetable) {
+            holder.setLessonModel(getLessonModel(lessons, holder.getDay(), holder.getLesson()));
+        }
 
         Integer allHours = this.storage.timetableLessonManager().getHours(this.groupModel);
         boolean valid = false;
@@ -81,18 +86,15 @@ public class GroupTimetableController extends Controller {
         }
     }
 
-    private void updateGrid() {
-        Collection<TimetableLessonModel> lessons = this.storage.timetableLessonManager().getData(this.groupModel);
+    private void setupGrid() {
         Day[] days = {Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday, Day.Friday, Day.Saturday};
 
-        tableGrid.getChildren().clear();
-        timetable.clear();
         for (int i = 0; i < days.length; i++) {
             Label dayName = new Label(days[i].name());
             dayName.setPadding(new Insets(40));
             tableGrid.add(dayName, i, 0);
             for (int j = 1; j < 7; j++) {
-                TimetableLessonHolder holder = new TimetableLessonHolder(this, getLessonModel(lessons, days[i], j), days[i], j);
+                TimetableLessonHolder holder = new TimetableLessonHolder(this, days[i], j);
                 timetable.add(holder);
                 tableGrid.add(holder.getContent(), i, j);
             }
