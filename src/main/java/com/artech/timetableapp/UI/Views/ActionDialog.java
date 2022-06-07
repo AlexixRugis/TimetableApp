@@ -1,15 +1,35 @@
 package com.artech.timetableapp.UI.Views;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
+/**
+ * Диалог действие
+ */
 public abstract class ActionDialog {
+    /**
+     * Получает представление диалога
+     * @return Представление диалога
+     */
     protected abstract View getView();
+
+    /**
+     * Исполняет действие
+     * @return Статус выполнения действия
+     */
     protected abstract Boolean performAction();
+
+    /**
+     * Проверяет правильность заполнения диалога
+     * @return Статус проверки
+     */
     protected abstract boolean validate();
 
+    /**
+     * Запускает диалоговое окно
+     * @return Статус выполнения диалогового окна
+     */
     public Boolean ask() {
         Dialog<Boolean> dialog = new Dialog<>();
         View view = getView();
@@ -25,6 +45,10 @@ public abstract class ActionDialog {
             }
             return false;
         });
-        return dialog.showAndWait().get();
+
+        if (dialog.showAndWait().isPresent())
+            return dialog.showAndWait().get();
+
+        return false;
     }
 }

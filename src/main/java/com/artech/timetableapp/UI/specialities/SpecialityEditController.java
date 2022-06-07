@@ -6,8 +6,8 @@ import com.artech.timetableapp.core.model.SpecialityModel;
 import com.artech.timetableapp.core.storage.IStorage;
 
 public class SpecialityEditController extends ModelEditController<SpecialityModel> {
-    public SpecialityEditController(IStorage storage, IObjectManager<SpecialityModel> manager, SpecialityModel model) {
-        super(storage, manager, model);
+    public SpecialityEditController(IStorage storage, SpecialityModel model) {
+        super(storage, model);
     }
 
     @Override
@@ -17,5 +17,10 @@ public class SpecialityEditController extends ModelEditController<SpecialityMode
             return new SpecialityModel(model.id(), proto.name());
         }
         return null;
+    }
+
+    @Override
+    protected IObjectManager<SpecialityModel> getManager() {
+        return this.storage.specialityManager();
     }
 }

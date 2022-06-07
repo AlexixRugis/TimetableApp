@@ -11,8 +11,8 @@ import javafx.scene.Node;
 
 public class SpecialitiesController extends ModelListController<SpecialityModel> implements IManagerUpdateListener {
 
-    public SpecialitiesController(IStorage storage, IObjectManager<SpecialityModel> manager) {
-        super(storage, manager);
+    public SpecialitiesController(IStorage storage) {
+        super(storage);
     }
 
     @Override
@@ -34,7 +34,12 @@ public class SpecialitiesController extends ModelListController<SpecialityModel>
 
     @Override
     protected Node getEditView(SpecialityModel item) {
-        return new SpecialityEditView(item, this.storage, this.manager).getContent();
+        return new SpecialityEditView(item, this.storage).getContent();
+    }
+
+    @Override
+    protected IObjectManager<SpecialityModel> getManager() {
+        return this.storage.specialityManager();
     }
 
     @Override

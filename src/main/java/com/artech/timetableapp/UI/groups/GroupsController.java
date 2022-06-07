@@ -10,8 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 
 public class GroupsController extends ModelListController<GroupModel> implements IManagerUpdateListener {
-    public GroupsController(IStorage storage, IObjectManager<GroupModel> manager) {
-        super(storage, manager);
+    public GroupsController(IStorage storage) {
+        super(storage);
     }
 
     @Override
@@ -34,7 +34,12 @@ public class GroupsController extends ModelListController<GroupModel> implements
 
     @Override
     protected Node getEditView(GroupModel item) {
-        return new GroupEditView(item, this.storage, this.manager).getContent();
+        return new GroupEditView(item, this.storage).getContent();
+    }
+
+    @Override
+    protected IObjectManager<GroupModel> getManager() {
+        return this.storage.groupManager();
     }
 
     @Override

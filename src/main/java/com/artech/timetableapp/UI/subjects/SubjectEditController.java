@@ -6,8 +6,8 @@ import com.artech.timetableapp.core.model.SubjectModel;
 import com.artech.timetableapp.core.storage.IStorage;
 
 public class SubjectEditController extends ModelEditController<SubjectModel> {
-    public SubjectEditController(IStorage storage, IObjectManager<SubjectModel> manager, SubjectModel model) {
-        super(storage, manager, model);
+    public SubjectEditController(IStorage storage,SubjectModel model) {
+        super(storage, model);
     }
 
     @Override
@@ -23,5 +23,10 @@ public class SubjectEditController extends ModelEditController<SubjectModel> {
         }
 
         return null;
+    }
+
+    @Override
+    protected IObjectManager<SubjectModel> getManager() {
+        return this.storage.subjectManager();
     }
 }

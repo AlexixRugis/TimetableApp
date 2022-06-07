@@ -9,15 +9,25 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 
+/**
+ * Представление редактирования модели
+ * @param <T> Класс модели
+ */
 public abstract class ModelEditView<T extends IModel> extends FXMLView {
+
     protected final T model;
     protected final IStorage storage;
     protected final IObjectManager<T> manager;
 
-    public ModelEditView(T model, IStorage storage, IObjectManager<T> manager) {
+    /**
+     * Конструктор представления редактирования модели
+     * @param model Модель
+     * @param storage Зранилище данных
+     */
+    public ModelEditView(T model, IStorage storage) {
         this.model = model;
         this.storage = storage;
-        this.manager = manager;
+        this.manager = getManager();
     }
 
     @Override
@@ -39,4 +49,10 @@ public abstract class ModelEditView<T extends IModel> extends FXMLView {
 
         return node;
     }
+
+    /**
+     * Получает менеджер моделей
+     * @return Менеджер моделей
+     */
+    protected abstract IObjectManager<T> getManager();
 }

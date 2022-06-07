@@ -1,11 +1,8 @@
 package com.artech.timetableapp.UI.timetable;
 
 import com.artech.timetableapp.UI.Controllers.Controller;
-import com.artech.timetableapp.core.manager.IManagerUpdateListener;
 import com.artech.timetableapp.core.model.GroupModel;
 import com.artech.timetableapp.core.storage.IStorage;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,12 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import java.util.Collection;
 
 public class TimetableController extends Controller {
-
     @FXML
     private ListView<GroupModel> groupList;
-
     @FXML
     private AnchorPane tableHolder;
+    private GroupTimetableView groupView;
 
     public TimetableController(IStorage storage) {
         super(storage);
@@ -29,25 +25,35 @@ public class TimetableController extends Controller {
 
     @FXML
     private void initialize() {
-        this.storage.groupManager().addUpdateListener(this::updateData);
+        this.storage.groupManager().addUpdateListener(this::updateGroupListData);
 
-        updateData();
-
-        groupList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            tableHolder.getChildren().clear();
-
-            if (newValue != null) {
-                Node node = new GroupTimetableView(this.storage, newValue).getContent();
-                AnchorPane.setTopAnchor(node, 0.0);
-                AnchorPane.setBottomAnchor(node, 0.0);
-                AnchorPane.setLeftAnchor(node, 0.0);
-                AnchorPane.setRightAnchor(node, 0.0);
-                tableHolder.getChildren().add(node);
-            }
-        });
+        groupList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectGroupModel(newValue));
+        updateGroupListData();
     }
 
-    private void updateData() {
+    private void selectGroupModel(GroupModel group) {
+        if (group != null) {
+            if (this.groupView == null) {
+                createGroupTimetable(group);
+            }
+            else {
+                this.groupView.setModel(group);
+            }
+        }
+    }
+
+    private void createGroupTimetable(GroupModel newValue) {
+        this.groupView = new GroupTimetableView(this.storage, newValue);
+        Node node = this.groupView.getContent();
+        AnchorPane.setTopAnchor(node, 0.0);
+        AnchorPane.setBottomAnchor(node, 0.0);
+        AnchorPane.setLeftAnchor(node, 0.0);
+        AnchorPane.setRightAnchor(node, 0.0);
+        tableHolder.getChildren().clear();
+        tableHolder.getChildren().add(node);
+    }
+
+    private void updateGroupListData() {
         setListData(this.storage.groupManager().getAll());
     }
 

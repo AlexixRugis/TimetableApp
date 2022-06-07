@@ -40,7 +40,7 @@ public class TimetableLessonHolder extends FXMLView {
         label = (Label) node.lookup("#label");
         button = (Button) node.lookup("#button");
 
-        button.setOnAction(event -> this.timetableController.clearData(this.day, this.lesson));
+        button.setOnAction(event -> this.timetableController.getTimetableActions().clearData(this.day, this.lesson));
 
         pane.setOnDragOver(event -> {
             if (event.getGestureSource() != label &&
@@ -62,7 +62,7 @@ public class TimetableLessonHolder extends FXMLView {
                 catch (NumberFormatException e) {
                     id = null;
                 }
-                this.timetableController.setData(id, this.day, this.lesson);
+                this.timetableController.getTimetableActions().setData(id, this.day, this.lesson);
                 success = true;
             }
             event.setDropCompleted(success);
@@ -101,7 +101,7 @@ public class TimetableLessonHolder extends FXMLView {
             return;
         }
 
-        if (this.timetableController.hasData(loadModel.teacher(), this.day, this.lesson)) {
+        if (this.timetableController.getTimetableActions().hasData(loadModel.teacher(), this.day, this.lesson)) {
             canDrop = false;
             pane.setStyle(red);
             return;

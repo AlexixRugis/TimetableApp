@@ -6,8 +6,8 @@ import com.artech.timetableapp.core.model.GroupModel;
 import com.artech.timetableapp.core.storage.IStorage;
 
 public class GroupEditController extends ModelEditController<GroupModel> {
-    public GroupEditController(IStorage storage, IObjectManager<GroupModel> manager, GroupModel model) {
-        super(storage, manager, model);
+    public GroupEditController(IStorage storage, GroupModel model) {
+        super(storage, model);
     }
 
     @Override
@@ -18,5 +18,10 @@ public class GroupEditController extends ModelEditController<GroupModel> {
         }
 
         return null;
+    }
+
+    @Override
+    protected IObjectManager<GroupModel> getManager() {
+        return this.storage.groupManager();
     }
 }

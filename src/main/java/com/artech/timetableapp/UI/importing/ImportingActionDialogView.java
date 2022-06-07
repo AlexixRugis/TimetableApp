@@ -3,8 +3,6 @@ package com.artech.timetableapp.UI.importing;
 import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Controllers.Controller;
 import com.artech.timetableapp.UI.Views.FXMLView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -14,13 +12,25 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Collection;
 
+/**
+ * Представление импорта данных
+ */
 public class ImportingActionDialogView extends FXMLView {
 
+    /**
+     * Чекбокс удаления данных
+     */
     private CheckBox deleteData;
+
+    /**
+     * Название выбранного файла
+     */
     private Label fileLabel;
-    private Button fileButton;
+
+    /**
+     * Выбранный файл
+     */
     private File selectedFile;
 
     @Override
@@ -34,8 +44,8 @@ public class ImportingActionDialogView extends FXMLView {
 
         deleteData = (CheckBox) build.lookup("#delete_data");
         fileLabel = (Label) build.lookup("#file_label");
-        fileButton = (Button) build.lookup("#file_button");
 
+        Button fileButton = (Button) build.lookup("#file_button");
         fileButton.setOnAction(event -> selectFile());
 
         return build;
@@ -51,6 +61,9 @@ public class ImportingActionDialogView extends FXMLView {
         return "Импорт";
     }
 
+    /**
+     * Выбирает файла импорта
+     */
     private void selectFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
@@ -64,10 +77,18 @@ public class ImportingActionDialogView extends FXMLView {
         fileLabel.setText(selectedFile != null ? selectedFile.getName() : "Выберите файл");
     }
 
+    /**
+     * Получения статуса чекбокса удаления данных
+     * @return Нажат ли чекбокс
+     */
     public Boolean getDeleteData() {
         return this.deleteData.isSelected();
     }
 
+    /**
+     * Получает выбранный файл
+     * @return Выбранный файл
+     */
     public File getSelectedFile() {
         return selectedFile;
     }

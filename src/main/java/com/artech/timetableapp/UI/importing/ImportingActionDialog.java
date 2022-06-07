@@ -5,10 +5,18 @@ import com.artech.timetableapp.UI.Views.View;
 import com.artech.timetableapp.core.storage.IStorage;
 import javafx.scene.control.Alert;
 
+/**
+ * Обработчик импорта данных
+ */
 public abstract class ImportingActionDialog extends ActionDialog {
+
     protected final ImportingActionDialogView view;
     protected final IStorage storage;
 
+    /**
+     * Конструктор обработчика импорта
+     * @param storage Зранилище данных
+     */
     public ImportingActionDialog(IStorage storage) {
         this.storage = storage;
         this.view = new ImportingActionDialogView();
@@ -43,5 +51,8 @@ public abstract class ImportingActionDialog extends ActionDialog {
         }
     }
 
+    /**
+     * Обрабатывает импорт данных
+     */
     protected abstract void handleImport();
 }

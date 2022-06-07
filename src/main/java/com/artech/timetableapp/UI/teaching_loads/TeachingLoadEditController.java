@@ -6,8 +6,8 @@ import com.artech.timetableapp.core.model.TeachingLoadModel;
 import com.artech.timetableapp.core.storage.IStorage;
 
 public class TeachingLoadEditController extends ModelEditController<TeachingLoadModel> {
-    public TeachingLoadEditController(IStorage storage, IObjectManager<TeachingLoadModel> manager, TeachingLoadModel model) {
-        super(storage, manager, model);
+    public TeachingLoadEditController(IStorage storage, TeachingLoadModel model) {
+        super(storage, model);
     }
 
     @Override
@@ -26,5 +26,10 @@ public class TeachingLoadEditController extends ModelEditController<TeachingLoad
         }
 
         return null;
+    }
+
+    @Override
+    protected IObjectManager<TeachingLoadModel> getManager() {
+        return this.storage.teachingLoadManager();
     }
 }

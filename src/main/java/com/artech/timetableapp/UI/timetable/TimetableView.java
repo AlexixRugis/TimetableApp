@@ -3,6 +3,7 @@ package com.artech.timetableapp.UI.timetable;
 import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Controllers.Controller;
 import com.artech.timetableapp.UI.Views.FXMLView;
+import com.artech.timetableapp.core.model.GroupModel;
 import com.artech.timetableapp.core.storage.IStorage;
 
 import java.net.URL;

@@ -10,8 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 
 public class TeachingLoadsController extends ModelListController<TeachingLoadModel> implements IManagerUpdateListener {
-    public TeachingLoadsController(IStorage storage, IObjectManager<TeachingLoadModel> manager) {
-        super(storage, manager);
+    public TeachingLoadsController(IStorage storage) {
+        super(storage);
     }
 
     @Override
@@ -33,7 +33,12 @@ public class TeachingLoadsController extends ModelListController<TeachingLoadMod
 
     @Override
     protected Node getEditView(TeachingLoadModel item) {
-        return new TeachingLoadEditView(item, this.storage, this.manager).getContent();
+        return new TeachingLoadEditView(item, this.storage).getContent();
+    }
+
+    @Override
+    protected IObjectManager<TeachingLoadModel> getManager() {
+        return this.storage.teachingLoadManager();
     }
 
     @Override

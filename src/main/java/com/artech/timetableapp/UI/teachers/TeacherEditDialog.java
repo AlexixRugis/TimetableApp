@@ -4,9 +4,15 @@ import com.artech.timetableapp.UI.Views.ModelDialog;
 import com.artech.timetableapp.UI.Views.View;
 import com.artech.timetableapp.core.model.TeacherModel;
 
+/**
+ * Диалог редактирования данных преподавателя
+ */
 public class TeacherEditDialog extends ModelDialog<TeacherModel> {
     private final TeacherEditDialogView view;
 
+    /**
+     * Конструктор диалога данных преподавателя
+     */
     public TeacherEditDialog() {
         this.view = new TeacherEditDialogView();
     }

@@ -4,7 +4,6 @@ import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Views.View;
 import com.artech.timetableapp.UI.groups.GroupsView;
 import com.artech.timetableapp.UI.specialities.SpecialitiesView;
-import com.artech.timetableapp.UI.subjects.SubjectEditView;
 import com.artech.timetableapp.UI.subjects.SubjectsView;
 import com.artech.timetableapp.UI.teachers.TeachersView;
 import com.artech.timetableapp.UI.teaching_loads.TeachingLoadsView;
@@ -18,14 +17,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public final class MainWindow {
-
-    private final IStorage storage;
-
-    public MainWindow(IStorage storage) {
-        this.storage = storage;
-    }
-
+/**
+ * Главное окно приложения
+ * @param storage Хранилище данных
+ */
+public record MainWindow(IStorage storage) {
+    /**
+     * Запускает приложение
+     *
+     * @param stage Главный контейнер приложения
+     */
     public void run(Stage stage) {
         String FXML = "main-view.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(TimetableApplication.class.getResource(FXML));
@@ -36,15 +37,20 @@ public final class MainWindow {
             throw new RuntimeException(e);
         }
 
-        stage.setTitle("my app");
+        stage.setTitle("Редактор расписания");
         stage.setScene(scene);
         stage.show();
 
         setupTabs(scene);
     }
 
+    /**
+     * Настраивает вкладки
+     *
+     * @param scene Сценв приложения
+     */
     private void setupTabs(Scene scene) {
-        TabPane pane = (TabPane)scene.lookup("#tab_layout");
+        TabPane pane = (TabPane) scene.lookup("#tab_layout");
 
         addTab(pane, new TeachersView(this.storage));
         addTab(pane, new SpecialitiesView(this.storage));
@@ -54,6 +60,12 @@ public final class MainWindow {
         addTab(pane, new TimetableView(this.storage));
     }
 
+    /**
+     * Добавляет вкладку в окно
+     *
+     * @param pane Панель вкладок
+     * @param view Вкладка
+     */
     private void addTab(TabPane pane, View view) {
         Tab tab = new Tab(view.getName());
         tab.setContent(view.getContent());

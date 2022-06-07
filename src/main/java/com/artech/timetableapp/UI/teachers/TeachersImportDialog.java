@@ -8,7 +8,15 @@ import com.artech.timetableapp.spreadsheets.SpreadSheetWorker;
 
 import java.io.IOException;
 
+/**
+ * Диалог импорта данных преподавателей
+ */
 public class TeachersImportDialog extends ImportingActionDialog {
+
+    /**
+     * Конструктор диалога импорта данных преподавателей
+     * @param storage Зранилище данных
+     */
     public TeachersImportDialog(IStorage storage) {
         super(storage);
     }

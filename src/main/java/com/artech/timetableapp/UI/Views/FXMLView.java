@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Предстваление на основе FXML файла
+ */
 public abstract class FXMLView extends View {
 
     @Override
@@ -22,7 +25,16 @@ public abstract class FXMLView extends View {
         }
     }
 
+    /**
+     * Получает путь к FXML файлу
+     * @return Путь к FXML файлу
+     */
     protected abstract URL getFXMLResourceURL();
+
+    /**
+     * Получает контроллер представления
+     * @return Контроллер представления
+     */
     protected abstract Controller getController();
 
 }

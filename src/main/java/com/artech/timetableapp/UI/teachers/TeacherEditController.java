@@ -5,10 +5,18 @@ import com.artech.timetableapp.core.manager.IObjectManager;
 import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.storage.IStorage;
 
+/**
+ * Контроллер редактирования преподавателя
+ */
 public class TeacherEditController extends ModelEditController<TeacherModel> {
 
-    public TeacherEditController(IStorage storage, IObjectManager<TeacherModel> manager, TeacherModel model) {
-        super(storage, manager, model);
+    /**
+     * Конструктор контроллера редактирования преподавателя
+     * @param storage Хранилище данных
+     * @param model Модель
+     */
+    public TeacherEditController(IStorage storage, TeacherModel model) {
+        super(storage, model);
     }
 
     @Override
@@ -18,5 +26,10 @@ public class TeacherEditController extends ModelEditController<TeacherModel> {
             return new TeacherModel(model.id(), proto.firstName(), proto.secondName(), proto.lastName());
         else
             return null;
+    }
+
+    @Override
+    protected IObjectManager<TeacherModel> getManager() {
+        return this.storage.teacherManager();
     }
 }

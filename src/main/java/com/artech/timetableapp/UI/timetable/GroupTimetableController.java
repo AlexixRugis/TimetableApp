@@ -2,8 +2,12 @@ package com.artech.timetableapp.UI.timetable;
 
 import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Controllers.Controller;
-import com.artech.timetableapp.core.model.*;
+import com.artech.timetableapp.core.model.Day;
+import com.artech.timetableapp.core.model.GroupModel;
+import com.artech.timetableapp.core.model.TeachingLoadModel;
+import com.artech.timetableapp.core.model.TimetableLessonModel;
 import com.artech.timetableapp.core.storage.IStorage;
+import com.artech.timetableapp.core.timetable.TimetableActions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,15 +18,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
 
 public class GroupTimetableController extends Controller {
-    private final GroupModel groupModel;
 
     @FXML
     private Text infoText;
@@ -35,14 +35,17 @@ public class GroupTimetableController extends Controller {
 
     private final ArrayList<TimetableLessonHolder> timetable = new ArrayList<>();
 
+    private GroupModel groupModel;
+    private final TimetableActions timetableActions;
     public GroupTimetableController(IStorage storage, GroupModel model) {
         super(storage);
         this.groupModel = model;
+        this.timetableActions = new TimetableActions(storage, model);
     }
 
     @FXML
     private void initialize() {
-        this.storage.teachingLoadManager().addUpdateListener(this::updateSubjectData);
+        this.storage.teachingLoadManager().addUpdateListener(this::updateSubjectListData);
         this.storage.timetableLessonManager().addUpdateListener(this::updateTimetableData);
 
         setupGrid();
@@ -61,22 +64,40 @@ public class GroupTimetableController extends Controller {
         exporter.perform();
     }
 
-    private void updateSubjectData() {
+    public TimetableActions getTimetableActions() {
+        return this.timetableActions;
+    }
+
+    public void setModel(GroupModel model) {
+        this.groupModel = model;
+        this.timetableActions.setModel(model);
+        updateTimetableData();
+    }
+
+    private void updateTimetableData() {
+        updateSubjectListData();
+        updateGridData();
+        updateHoursStatistics();
+    }
+
+    private void updateSubjectListData() {
         setSubjects(this.storage.teachingLoadManager().getByGroup(this.groupModel));
     }
-    private void updateTimetableData() {
-        updateSubjectData();
 
+    private void updateGridData() {
         Collection<TimetableLessonModel> lessons = this.storage.timetableLessonManager().getData(this.groupModel);
         for (TimetableLessonHolder holder : timetable) {
-            holder.setLessonModel(getLessonModel(lessons, holder.getDay(), holder.getLesson()));
+            holder.setLessonModel(this.timetableActions.getLessonModel(lessons, holder.getDay(), holder.getLesson()));
         }
+    }
 
+    private void updateHoursStatistics() {
         Integer allHours = this.storage.timetableLessonManager().getHours(this.groupModel);
         boolean valid = false;
-        this.infoText.setText("Заполнено часов: " + allHours + "/36");
+        Integer hoursPerWeek = TimetableApplication.getInstance().getSettings().getLessonsPerWeek();
+        this.infoText.setText("Заполнено часов: " + allHours + "/" + hoursPerWeek);
 
-        if (allHours <= 36) {
+        if (allHours <= hoursPerWeek) {
             valid = true;
         }
 
@@ -104,47 +125,15 @@ public class GroupTimetableController extends Controller {
         Day[] days = {Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday, Day.Friday, Day.Saturday};
 
         for (int i = 0; i < days.length; i++) {
-            Label dayName = new Label(days[i].toString());
-            dayName.setPadding(new Insets(30));
-            tableGrid.add(dayName, i, 0);
+            Label dayLabel = new Label(days[i].toString());
+            dayLabel.setPadding(new Insets(30));
+            tableGrid.add(dayLabel, i, 0);
+
             for (int j = 1; j <= TimetableApplication.getInstance().getSettings().getLessonsPerDay(); j++) {
                 TimetableLessonHolder holder = new TimetableLessonHolder(this, days[i], j);
                 timetable.add(holder);
                 tableGrid.add(holder.getContent(), i, j);
             }
         }
-    }
-
-    private TimetableLessonModel getLessonModel(Collection<TimetableLessonModel> models, Day day, Integer lesson) {
-        for (TimetableLessonModel lessonModel : models) {
-            if (lessonModel.day() == day && Objects.equals(lessonModel.lessonNumber(), lesson)) {
-                return lessonModel;
-            }
-        }
-
-        return null;
-    }
-
-    public Boolean hasData(TeacherModel teacher, Day day, Integer lesson) {
-        Collection<TimetableLessonModel> models = this.storage.timetableLessonManager().getData(teacher, day, lesson);
-
-        boolean has = false;
-        for (TimetableLessonModel model : models) {
-            if (!Objects.equals(model.group().id(), this.groupModel.id())) {
-                has = true;
-                break;
-            }
-        }
-
-        return has;
-    }
-
-    public void setData(Integer teachingLoadId, Day day, Integer lesson) {
-        TimetableLessonModel model = new TimetableLessonModel(0, day, lesson, this.storage.teachingLoadManager().get(teachingLoadId), this.groupModel);
-        this.storage.timetableLessonManager().setData(model);
-    }
-
-    public void clearData(Day day, Integer lesson) {
-        this.storage.timetableLessonManager().clearData(this.groupModel, day, lesson);
     }
 }

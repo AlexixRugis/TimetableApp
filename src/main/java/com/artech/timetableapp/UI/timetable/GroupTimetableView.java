@@ -10,12 +10,10 @@ import java.net.URL;
 
 public class GroupTimetableView extends FXMLView {
 
-    private final IStorage storage;
-    private final GroupModel model;
+    private final GroupTimetableController controller;
 
     public GroupTimetableView(IStorage storage, GroupModel groupModel) {
-        this.storage = storage;
-        this.model = groupModel;
+        this.controller = new GroupTimetableController(storage, groupModel);
     }
 
     @Override
@@ -25,11 +23,15 @@ public class GroupTimetableView extends FXMLView {
 
     @Override
     protected Controller getController() {
-        return new GroupTimetableController(this.storage, this.model);
+        return this.controller;
     }
 
     @Override
     public String getName() {
         return "Группа";
+    }
+
+    public void setModel(GroupModel model) {
+        this.controller.setModel(model);
     }
 }

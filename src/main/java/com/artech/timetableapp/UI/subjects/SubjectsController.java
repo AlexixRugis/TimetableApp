@@ -17,8 +17,8 @@ import javafx.scene.Node;
 import java.util.Collection;
 
 public class SubjectsController extends ModelListController<SubjectModel> implements IManagerUpdateListener {
-    public SubjectsController(IStorage storage, IObjectManager<SubjectModel> manager) {
-        super(storage, manager);
+    public SubjectsController(IStorage storage) {
+        super(storage);
     }
 
     @Override
@@ -40,7 +40,12 @@ public class SubjectsController extends ModelListController<SubjectModel> implem
 
     @Override
     protected Node getEditView(SubjectModel item) {
-        return new SubjectEditView(item, this.storage, this.manager).getContent();
+        return new SubjectEditView(item, this.storage).getContent();
+    }
+
+    @Override
+    protected IObjectManager<SubjectModel> getManager() {
+        return this.storage.subjectManager();
     }
 
     @Override
