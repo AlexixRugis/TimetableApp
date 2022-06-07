@@ -11,13 +11,29 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
+/**
+ * Приложение
+ */
 public final class TimetableApplication extends Application implements IApplication {
-    private final ISettings settings = () -> 6;
+    private final ISettings settings = new ISettings() {
+        @Override
+        public Integer getLessonsPerDay() {
+            return 6;
+        }
+
+        @Override
+        public Integer getLessonsPerWeek() {
+            return 36;
+        }
+    };
     private static TimetableApplication instance;
     private final String databasePath;
     private IStorage storage;
     private Stage primaryStage;
 
+    /**
+     * Конструктор приложения
+     */
     public TimetableApplication() {
         this.databasePath = "sqlite.db";
     }
@@ -31,17 +47,28 @@ public final class TimetableApplication extends Application implements IApplicat
         run(stage);
     }
 
+    /**
+     * Запускает приложение
+     * @param stage Контейнер приложения
+     */
     private void run(Stage stage) {
         createStorage();
         createUI(stage);
     }
 
+    /**
+     * Создает пользователский интерфейс
+     * @param stage онтейнер приложения
+     */
     private void createUI(Stage stage) {
         primaryStage = stage;
         MainWindow window = new MainWindow(this.storage);
         window.run(stage);
     }
 
+    /**
+     * Создает хранилище данных
+     */
     private void createStorage() {
         DatabaseHandle handle = connectDatabase();
         try {
@@ -54,6 +81,10 @@ public final class TimetableApplication extends Application implements IApplicat
 
     }
 
+    /**
+     * Создает дескриптор БД
+     * @return Дескриптор БД
+     */
     private DatabaseHandle connectDatabase() {
         try {
             return new DatabaseHandle(databasePath);

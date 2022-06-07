@@ -8,7 +8,11 @@ import com.artech.timetableapp.database.manager.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * Хранилище данных на основе БД
+ */
 public final class DbStorage implements IStorage {
+
     private final ITeacherManager teacherManager;
     private final ISpecialityManager specialityManager;
     private final ISubjectManager subjectManager;
@@ -16,11 +20,17 @@ public final class DbStorage implements IStorage {
     private final ITeachingLoadManager teachingLoadManager;
     private final ITimetableLessonManager timetableLessonManager;
 
+    /**
+     * Конструктор хранилиза на основе БД
+     * @param handle Дескриптор БД
+     */
     public DbStorage(DatabaseHandle handle) throws SQLException {
 
+        // **************************** Включение использование связей в БД
         PreparedStatement statement = handle.buildStatement("pragma foreign_keys = on");
         statement.executeUpdate();
         statement.close();
+        // ****************************************************************
 
         this.teacherManager = new TeacherManager(handle);
         this.specialityManager = new SpecialityManager(handle);

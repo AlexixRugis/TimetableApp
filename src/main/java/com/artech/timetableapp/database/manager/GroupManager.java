@@ -1,20 +1,27 @@
 package com.artech.timetableapp.database.manager;
 
 import com.artech.timetableapp.core.manager.IGroupManager;
-import com.artech.timetableapp.core.manager.IObjectManager;
+import com.artech.timetableapp.core.manager.ISpecialityManager;
 import com.artech.timetableapp.core.model.GroupModel;
-import com.artech.timetableapp.core.model.SpecialityModel;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Медеджер моделей групп
+ */
 public final class GroupManager extends DbObjectManager<GroupModel> implements IGroupManager {
 
-    private final IObjectManager<SpecialityModel> specialityManager;
+    private final ISpecialityManager specialityManager;
 
-    public GroupManager(DatabaseHandle handle, IObjectManager<SpecialityModel> specialityManager) throws SQLException {
+    /**
+     * Конструктор менеджера моделей групп
+     * @param handle Дескриптор БД
+     * @param specialityManager Менеджер моделей специальностей
+     */
+    public GroupManager(DatabaseHandle handle, ISpecialityManager specialityManager) throws SQLException {
         super(handle, "groups");
         this.specialityManager = specialityManager;
     }

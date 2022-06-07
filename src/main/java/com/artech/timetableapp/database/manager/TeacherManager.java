@@ -8,8 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Менеджер моделей преподавателей
+ */
 public final class TeacherManager extends DbObjectManager<TeacherModel> implements ITeacherManager {
 
+    /**
+     * Конструктор менеджера моделей специальностей
+     * @param handle Дескриптор БД
+     */
     public TeacherManager(DatabaseHandle handle) throws SQLException {
         super(handle, "teachers");
     }

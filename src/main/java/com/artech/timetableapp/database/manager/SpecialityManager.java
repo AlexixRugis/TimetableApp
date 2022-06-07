@@ -8,8 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Менеджер моделей специальностей
+ */
 public final class SpecialityManager extends DbObjectManager<SpecialityModel> implements ISpecialityManager {
 
+    /**
+     * Конструктор менеджер моделей специальностей
+     * @param handle Дескриптор БД
+     */
     public SpecialityManager(DatabaseHandle handle) throws SQLException {
         super(handle, "specialities");
     }
@@ -20,7 +27,7 @@ public final class SpecialityManager extends DbObjectManager<SpecialityModel> im
                 "id INTEGER PRIMARY KEY," +
                 "name TEXT NOT NULL" +
                 ")");
-        int result = statement.executeUpdate();
+        statement.executeUpdate();
         statement.close();
     }
 

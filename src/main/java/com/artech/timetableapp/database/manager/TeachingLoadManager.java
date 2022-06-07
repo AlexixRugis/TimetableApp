@@ -1,10 +1,10 @@
 package com.artech.timetableapp.database.manager;
 
-import com.artech.timetableapp.core.manager.IObjectManager;
+import com.artech.timetableapp.core.manager.IGroupManager;
+import com.artech.timetableapp.core.manager.ISubjectManager;
+import com.artech.timetableapp.core.manager.ITeacherManager;
 import com.artech.timetableapp.core.manager.ITeachingLoadManager;
 import com.artech.timetableapp.core.model.GroupModel;
-import com.artech.timetableapp.core.model.SubjectModel;
-import com.artech.timetableapp.core.model.TeacherModel;
 import com.artech.timetableapp.core.model.TeachingLoadModel;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
@@ -15,16 +15,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Менеджер моделей педагогических нагрузок
+ */
 public final class TeachingLoadManager extends DbObjectManager<TeachingLoadModel> implements ITeachingLoadManager {
 
-    private final IObjectManager<TeacherModel> teacherManager;
-    private final IObjectManager<SubjectModel> subjectManager;
-    private final IObjectManager<GroupModel> groupManager;
+    private final ITeacherManager teacherManager;
 
+    private final ISubjectManager subjectManager;
+
+    private final IGroupManager groupManager;
+
+    /**
+     * Конструктор менеджера моделей педагогических нагрузок
+     * @param handle Дескриптор БД
+     * @param teacherManager Менеджер моделей преподавателей
+     * @param subjectManager Менеджер моделей дисциплин
+     * @param groupManager Менеджер моделей групп
+     */
     public TeachingLoadManager(DatabaseHandle handle,
-                               IObjectManager<TeacherModel> teacherManager,
-                               IObjectManager<SubjectModel> subjectManager,
-                               IObjectManager<GroupModel> groupManager) throws SQLException {
+                               ITeacherManager teacherManager,
+                               ISubjectManager subjectManager,
+                               IGroupManager groupManager) throws SQLException {
         super(handle, "teaching_loads");
         this.teacherManager = teacherManager;
         this.subjectManager = subjectManager;

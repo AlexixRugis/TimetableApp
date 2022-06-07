@@ -1,6 +1,7 @@
 package com.artech.timetableapp.database.manager;
 
-import com.artech.timetableapp.core.manager.IObjectManager;
+import com.artech.timetableapp.core.manager.IGroupManager;
+import com.artech.timetableapp.core.manager.ITeachingLoadManager;
 import com.artech.timetableapp.core.manager.ITimetableLessonManager;
 import com.artech.timetableapp.core.model.*;
 import com.artech.timetableapp.core.query.DatabaseHandle;
@@ -12,12 +13,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Менеджер моделей расписания
+ */
 public final class TimetableLessonManager extends DbObjectManager<TimetableLessonModel> implements ITimetableLessonManager {
 
-    private final IObjectManager<TeachingLoadModel> teachingLoadManager;
-    private final IObjectManager<GroupModel> groupManager;
+    private final ITeachingLoadManager teachingLoadManager;
 
-    public TimetableLessonManager(DatabaseHandle handle, IObjectManager<TeachingLoadModel> teachingLoadManager, IObjectManager<GroupModel> groupManager) throws SQLException {
+    private final IGroupManager groupManager;
+
+    /**
+     * Конструктор менеджера моделей расписания
+     * @param handle Дескриптор БД
+     * @param teachingLoadManager Менеджер моделей педагогических нагрузок
+     * @param groupManager Менеджер моделей групп
+     */
+    public TimetableLessonManager(DatabaseHandle handle, ITeachingLoadManager teachingLoadManager, IGroupManager groupManager) throws SQLException {
         super(handle, "timetable_lessons");
         this.teachingLoadManager = teachingLoadManager;
         this.groupManager = groupManager;
@@ -158,6 +169,7 @@ public final class TimetableLessonManager extends DbObjectManager<TimetableLesso
         return models;
     }
 
+    @Override
     public Collection<TimetableLessonModel> getData(TeacherModel model, Day day, Integer lesson) {
         List<TimetableLessonModel> models = new ArrayList<>();
 

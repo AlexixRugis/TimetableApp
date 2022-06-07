@@ -10,13 +10,24 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *
- * @author TOWARICH_LESHIY
+ * Обработчик таблиц OpenOffice
  */
 public final class OpenDocumentWorker extends SpreadSheetWorker {
+
+    /**
+     * Таблица
+     */
     private final SpreadSheet spreadSheet;
+
+    /**
+     * Номер выбранного листа
+     */
     private int selectedSheet = 0;
-    
+
+    /**
+     * Конструктор обработчика
+     * @param file Файл таблицы
+     */
     public OpenDocumentWorker(File file) throws IOException {
         super(file);
         this.spreadSheet = new SpreadSheet(file);

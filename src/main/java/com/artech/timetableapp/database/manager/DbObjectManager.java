@@ -12,17 +12,52 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Менеджер коллеций моделей на основе БД
+ * @param <T> Класс модели
+ */
 public abstract class DbObjectManager<T extends IModel> implements IObjectManager<T> {
 
+    /**
+     * Слушатели события обновления коллекции
+     */
     private final List<IManagerUpdateListener> listeners = new ArrayList<>();
+
+    /**
+     * Дескриптор БД
+     */
     protected final DatabaseHandle handle;
+
+    /**
+     * Название таблицы БД
+     */
     protected final String tableName;
 
+    /**
+     * Запрос получения модели
+     */
     private final String getQuery;
+
+    /**
+     * Запрос получения коллекции
+     */
     private final String getAllQuery;
+
+    /**
+     * Запрос удаления модели из БД
+     */
     private final String deleteQuery;
+
+    /**
+     * Запрос очистки коллекции
+     */
     private final String clearQuery;
 
+    /**
+     * Конструктор менеджера
+     * @param handle Дескриптор БД
+     * @param tableName Название таблицы БД
+     */
     public DbObjectManager(DatabaseHandle handle, String tableName) throws SQLException {
         this.handle = handle;
         this.tableName = tableName;
@@ -35,7 +70,16 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
     }
 
 
+    /**
+     * Создает таблицу в БД, если она отсутствует
+     */
     protected abstract void tryCreateTable() throws SQLException;
+
+    /**
+     * Создает модель на основе данных из БД
+     * @param resultSet Результат выполнения запроса БД
+     * @return Модель
+     */
     protected abstract T build(ResultSet resultSet);
 
     @Override
@@ -108,6 +152,9 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
         }
     }
 
+    /**
+     * Обновляет состояния слушателей события обновления коллекции
+     */
     protected void handleUpdate() {
         for (IManagerUpdateListener listener : listeners) {
             if (listener != null) listener.onUpdate();
@@ -124,6 +171,12 @@ public abstract class DbObjectManager<T extends IModel> implements IObjectManage
         listeners.remove(listener);
     }
 
+    /**
+     * Получает Целочисленное значение из столбца БД
+     * @param resultSet Результат выполненя запроса БД
+     * @param column Название столбца БД
+     * @return Целочисленное значение столбца
+     */
     protected static Integer getInt(ResultSet resultSet, String column) throws SQLException {
         int value = resultSet.getInt(column);
         return resultSet.wasNull() ? null : value;

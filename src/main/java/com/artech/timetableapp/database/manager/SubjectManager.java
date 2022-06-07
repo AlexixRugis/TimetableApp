@@ -1,8 +1,7 @@
 package com.artech.timetableapp.database.manager;
 
-import com.artech.timetableapp.core.manager.IObjectManager;
+import com.artech.timetableapp.core.manager.ISpecialityManager;
 import com.artech.timetableapp.core.manager.ISubjectManager;
-import com.artech.timetableapp.core.model.SpecialityModel;
 import com.artech.timetableapp.core.model.SubjectModel;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 
@@ -10,10 +9,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Менеджер моделей дисциплин
+ */
 public final class SubjectManager extends DbObjectManager<SubjectModel> implements ISubjectManager {
-    private final IObjectManager<SpecialityModel> specialityManager;
+    private final ISpecialityManager specialityManager;
 
-    public SubjectManager(DatabaseHandle handle, IObjectManager<SpecialityModel> specialityManager) throws SQLException {
+    /**
+     * Конструктор менеджера моделей дисциплин
+     * @param handle Дескриптор БД
+     * @param specialityManager Менеджер моделей специальностей
+     */
+    public SubjectManager(DatabaseHandle handle, ISpecialityManager specialityManager) throws SQLException {
         super(handle, "subjects");
         this.specialityManager = specialityManager;
     }

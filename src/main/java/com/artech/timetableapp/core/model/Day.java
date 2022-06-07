@@ -1,5 +1,8 @@
 package com.artech.timetableapp.core.model;
 
+/**
+ * День недели
+ */
 public enum Day {
     Sunday(0),
     Monday(1),
@@ -9,14 +12,32 @@ public enum Day {
     Friday(5),
     Saturday(6);
 
+    /**
+     * Поле, хранящее номер дня недели
+     */
     private final Integer index;
+
+    /**
+     * Конструктор дня недели
+     * @param index номер дня
+     */
     Day(Integer index) {
         this.index = index;
     }
 
+    /**
+     * Получает номер дня
+     * @return Номер дня
+     */
     public Integer getIndex() {
         return this.index;
     }
+
+    /**
+     * Получает день недели по номеру
+     * @param index Номер дня
+     * @return День недели
+     */
     public static Day get(Integer index) {
         return switch (index) {
             case 0 -> Day.Sunday;
