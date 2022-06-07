@@ -29,4 +29,18 @@ public enum Day {
             default -> throw new RuntimeException("Invalid day index!");
         };
     }
+
+    @Override
+    public String toString() {
+        return switch (this.index) {
+            case 0 -> "Воскресенье";
+            case 1 -> "Понедельник";
+            case 2 -> "Вторник";
+            case 3 -> "Среда";
+            case 4 -> "Четверг";
+            case 5 -> "Пятница";
+            case 6 -> "Суббота";
+            default -> throw new RuntimeException("Invalid day index!");
+        };
+    }
 }

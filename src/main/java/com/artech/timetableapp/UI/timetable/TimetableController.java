@@ -29,12 +29,7 @@ public class TimetableController extends Controller {
 
     @FXML
     private void initialize() {
-        this.storage.groupManager().addUpdateListener(new IManagerUpdateListener() {
-            @Override
-            public void onUpdate() {
-                updateData();
-            }
-        });
+        this.storage.groupManager().addUpdateListener(this::updateData);
 
         updateData();
 

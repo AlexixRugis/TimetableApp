@@ -1,5 +1,6 @@
 package com.artech.timetableapp.UI.timetable;
 
+import com.artech.timetableapp.TimetableApplication;
 import com.artech.timetableapp.UI.Controllers.Controller;
 import com.artech.timetableapp.core.model.*;
 import com.artech.timetableapp.core.storage.IStorage;
@@ -13,7 +14,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -46,6 +49,17 @@ public class GroupTimetableController extends Controller {
         updateTimetableData();
     }
 
+    @FXML
+    private void exportODS() {
+        TimetableODSExporter exporter = new TimetableODSExporter(this.storage, this.groupModel);
+        exporter.perform();
+    }
+
+    @FXML
+    private void exportPDF() {
+        TimetablePDFExporter exporter = new TimetablePDFExporter(this.storage, this.groupModel);
+        exporter.perform();
+    }
 
     private void updateSubjectData() {
         setSubjects(this.storage.teachingLoadManager().getByGroup(this.groupModel));
@@ -90,10 +104,10 @@ public class GroupTimetableController extends Controller {
         Day[] days = {Day.Monday, Day.Tuesday, Day.Wednesday, Day.Thursday, Day.Friday, Day.Saturday};
 
         for (int i = 0; i < days.length; i++) {
-            Label dayName = new Label(days[i].name());
-            dayName.setPadding(new Insets(40));
+            Label dayName = new Label(days[i].toString());
+            dayName.setPadding(new Insets(30));
             tableGrid.add(dayName, i, 0);
-            for (int j = 1; j < 7; j++) {
+            for (int j = 1; j <= TimetableApplication.getInstance().getSettings().getLessonsPerDay(); j++) {
                 TimetableLessonHolder holder = new TimetableLessonHolder(this, days[i], j);
                 timetable.add(holder);
                 tableGrid.add(holder.getContent(), i, j);

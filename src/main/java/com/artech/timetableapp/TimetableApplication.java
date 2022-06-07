@@ -2,6 +2,7 @@ package com.artech.timetableapp;
 
 import com.artech.timetableapp.UI.MainWindow;
 import com.artech.timetableapp.core.IApplication;
+import com.artech.timetableapp.core.ISettings;
 import com.artech.timetableapp.core.query.DatabaseHandle;
 import com.artech.timetableapp.database.storage.DbStorage;
 import com.artech.timetableapp.core.storage.IStorage;
@@ -11,7 +12,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 
 public final class TimetableApplication extends Application implements IApplication {
-
+    private final ISettings settings = () -> 6;
     private static TimetableApplication instance;
     private final String databasePath;
     private IStorage storage;
@@ -76,5 +77,10 @@ public final class TimetableApplication extends Application implements IApplicat
     public static TimetableApplication getInstance() {
         if (instance == null) instance = new TimetableApplication();
         return instance;
+    }
+
+    @Override
+    public ISettings getSettings() {
+        return settings;
     }
 }

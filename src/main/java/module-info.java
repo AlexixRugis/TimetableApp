@@ -8,6 +8,7 @@ module com.artech.timetableapp {
     requires java.sql;
     requires org.xerial.sqlitejdbc;
     requires com.github.miachm.sods;
+    requires itextpdf;
 
     opens com.artech.timetableapp to javafx.fxml;
     opens com.artech.timetableapp.UI.Controllers;
