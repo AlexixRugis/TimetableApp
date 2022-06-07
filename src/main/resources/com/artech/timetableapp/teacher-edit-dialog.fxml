@@ -4,25 +4,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane hgap="10.0" prefHeight="132.0" prefWidth="249.0" vgap="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextField fx:id="last_name" GridPane.columnIndex="1" />
-      <Label text="Фамилия" />
-      <TextField fx:id="first_name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label text="Имя" GridPane.rowIndex="1" />
-      <TextField fx:id="second_name" layoutX="70.0" layoutY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label layoutX="10.0" layoutY="49.0" text="Отчество" GridPane.rowIndex="2" />
-   </children>
+<GridPane hgap="10.0" prefHeight="132.0" prefWidth="249.0" vgap="10.0" xmlns="http://javafx.com/javafx/16"
+          xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
-      <ColumnConstraints minWidth="-Infinity" />
-      <ColumnConstraints />
+      <ColumnConstraints minWidth="-Infinity"/>
+      <ColumnConstraints/>
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
+      <RowConstraints/>
+      <RowConstraints/>
+      <RowConstraints/>
    </rowConstraints>
    <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
    </padding>
+   <TextField fx:id="last_name" GridPane.columnIndex="1"/>
+   <Label text="Фамилия"/>
+   <TextField fx:id="first_name" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+   <Label text="Имя" GridPane.rowIndex="1"/>
+   <TextField fx:id="second_name" layoutX="70.0" layoutY="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+   <Label layoutX="10.0" layoutY="49.0" text="Отчество" GridPane.rowIndex="2"/>
 </GridPane>

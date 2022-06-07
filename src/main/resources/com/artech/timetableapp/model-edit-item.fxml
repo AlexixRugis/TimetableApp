@@ -6,20 +6,18 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-        <Text fx:id="text" text="text" textOrigin="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Text>
-      <HBox layoutX="596.0" prefHeight="35.0" prefWidth="104.0" spacing="10.0" style="-fx-background-color: #00000000;" AnchorPane.leftAnchor="596.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <children>
-              <Button text="edit" onAction="#onEdit"/>
-              <Button text="delete" onAction="#onDelete"/>
-          </children>
-      </HBox>
-   </children>
-   <padding>
-      <Insets left="15.0" top="5.0" />
-   </padding>
+    <padding>
+        <Insets left="15.0" top="5.0"/>
+    </padding>
+    <Text fx:id="text" text="text" textOrigin="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
+        <font>
+        <Font size="13.0"/>
+        </font>
+    </Text>
+    <HBox layoutX="596.0" prefHeight="35.0" prefWidth="104.0" spacing="10.0" style="-fx-background-color: #00000000;"
+          AnchorPane.leftAnchor="596.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Button text="edit" onAction="#onEdit"/>
+        <Button text="delete" onAction="#onDelete"/>
+    </HBox>
 </AnchorPane>

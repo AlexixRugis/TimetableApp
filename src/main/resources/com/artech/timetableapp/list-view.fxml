@@ -3,14 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <Button mnemonicParsing="false" onAction="#addNew" text="Добавить" />
-            <Button fx:id="importButton" mnemonicParsing="false" onAction="#importData" text="Импорт из .ods" />
-        </items>
-      </ToolBar>
-      <ListView fx:id="list" layoutY="40.0" prefHeight="360.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+             AnchorPane.topAnchor="0.0">
+        <Button mnemonicParsing="false" onAction="#addNew" text="Добавить"/>
+        <Button fx:id="importButton" mnemonicParsing="false" onAction="#importData" text="Импорт из .ods"/>
+    </ToolBar>
+    <ListView fx:id="list" layoutY="40.0" prefHeight="360.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0"/>
 </AnchorPane>

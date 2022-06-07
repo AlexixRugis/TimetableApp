@@ -4,36 +4,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="105.0" prefWidth="184.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox prefHeight="127.0" prefWidth="198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <CheckBox fx:id="delete_data" mnemonicParsing="false" text="Перезаписать данные? (старые данные будут удалены)">
-               <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-               </padding>
-            </CheckBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="file_label" text="Файл">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </padding>
-                  </Label>
-                  <Button fx:id="file_button" mnemonicParsing="false" text="Выберите">
-                     <HBox.margin>
-                        <Insets bottom="15.0" top="15.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets left="15.0" right="15.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
+<AnchorPane prefHeight="105.0" prefWidth="184.0" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <VBox prefHeight="127.0" prefWidth="198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <CheckBox fx:id="delete_data" mnemonicParsing="false"
+                text="Перезаписать данные? (старые данные будут удалены)">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+         </padding>
+      </CheckBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <Label fx:id="file_label" text="Файл">
+            <HBox.margin>
+               <Insets/>
+            </HBox.margin>
+            <padding>
+               <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+            </padding>
+         </Label>
+         <Button fx:id="file_button" mnemonicParsing="false" text="Выберите">
+            <HBox.margin>
+               <Insets bottom="15.0" top="15.0"/>
+            </HBox.margin>
+            <padding>
+               <Insets left="15.0" right="15.0"/>
+            </padding>
+         </Button>
+      </HBox>
+   </VBox>
 </AnchorPane>

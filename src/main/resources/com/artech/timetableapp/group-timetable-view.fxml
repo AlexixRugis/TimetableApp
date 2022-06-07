@@ -5,56 +5,65 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<SplitPane dividerPositions="0.69" prefHeight="381.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <ToolBar prefHeight="14.0" prefWidth="410.0">
-                    <items>
-                      <Button mnemonicParsing="false" text="Экспорт PDF" onAction="#exportPDF">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Button>
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Экспорт ODS" onAction="#exportODS">
-                           <font>
-                              <Font size="11.0" />
-                           </font>
-                        </Button>
-                    </items>
-                  </ToolBar>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" pickOnBounds="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <GridPane fx:id="tableGrid" style="-fx-grid-lines-visible: true; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        </GridPane>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
-               </children>
-            </VBox>
-         </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-         <children>
-            <SplitPane dividerPositions="0.75" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                     <children>
-                        <ListView fx:id="subjectsList" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets></ListView>
-                     </children></AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                     <children>
-                        <Text fx:id="infoText" text="Label" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children></AnchorPane>
-              </items>
-            </SplitPane>
-         </children></AnchorPane>
-        </items>
+<SplitPane dividerPositions="0.69" prefHeight="381.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+        <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ToolBar prefHeight="14.0" prefWidth="410.0">
+                <Button mnemonicParsing="false" text="Экспорт PDF" onAction="#exportPDF">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Button>
+                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Экспорт ODS"
+                        onAction="#exportODS">
+                    <font>
+                        <Font size="11.0"/>
+                    </font>
+                </Button>
+            </ToolBar>
+            <ScrollPane fitToHeight="true" fitToWidth="true" pickOnBounds="false" prefHeight="200.0"
+                        prefWidth="200.0" VBox.vgrow="SOMETIMES">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                            <GridPane fx:id="tableGrid"
+                                      style="-fx-grid-lines-visible: true; -fx-background-color: white;"
+                                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            </GridPane>
+                        </children>
+                    </AnchorPane>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+        <children>
+      <SplitPane dividerPositions="0.75" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0"
+                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="0.0">
+          <items>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <children>
+                      <ListView fx:id="subjectsList" prefHeight="200.0" prefWidth="200.0"
+                                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <opaqueInsets>
+                              <Insets/>
+                          </opaqueInsets>
+                      </ListView>
+                  </children>
+              </AnchorPane>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                  <children>
+                      <Text fx:id="infoText" text="Label" AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                  </children>
+              </AnchorPane>
+          </items>
+      </SplitPane>
+        </children>
+    </AnchorPane>
 </SplitPane>

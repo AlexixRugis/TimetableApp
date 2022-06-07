@@ -1,6 +1,6 @@
 package com.artech.timetableapp;
 
-import com.artech.timetableapp.UI.MainWindow;
+import com.artech.timetableapp.ui.MainWindow;
 import com.artech.timetableapp.core.IApplication;
 import com.artech.timetableapp.core.ISettings;
 import com.artech.timetableapp.core.query.DatabaseHandle;

@@ -11,16 +11,16 @@ module com.artech.timetableapp {
     requires itextpdf;
 
     opens com.artech.timetableapp to javafx.fxml;
-    opens com.artech.timetableapp.UI.Controllers;
+    opens com.artech.timetableapp.ui.Controllers;
     exports com.artech.timetableapp;
     exports com.artech.timetableapp.core;
     exports com.artech.timetableapp.core.storage;
-    opens com.artech.timetableapp.UI.importing;
-    opens com.artech.timetableapp.UI.teachers;
-    opens com.artech.timetableapp.UI.specialities;
-    opens com.artech.timetableapp.UI.groups;
-    opens com.artech.timetableapp.UI.subjects;
-    opens com.artech.timetableapp.UI.teaching_loads;
-    opens com.artech.timetableapp.UI.timetable;
-    opens com.artech.timetableapp.UI.Views;
+    opens com.artech.timetableapp.ui.importing;
+    opens com.artech.timetableapp.ui.teachers;
+    opens com.artech.timetableapp.ui.specialities;
+    opens com.artech.timetableapp.ui.groups;
+    opens com.artech.timetableapp.ui.subjects;
+    opens com.artech.timetableapp.ui.teaching_loads;
+    opens com.artech.timetableapp.ui.timetable;
+    opens com.artech.timetableapp.ui.Views;
 }
