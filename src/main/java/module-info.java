@@ -23,4 +23,6 @@ module com.artech.timetableapp {
     opens com.artech.timetableapp.ui.teaching_loads;
     opens com.artech.timetableapp.ui.timetable;
     opens com.artech.timetableapp.ui.Views;
+    exports com.artech.timetableapp.config;
+    opens com.artech.timetableapp.config to javafx.fxml;
 }

@@ -1,6 +1,7 @@
 package com.artech.timetableapp.ui;
 
 import com.artech.timetableapp.TimetableApplication;
+import com.artech.timetableapp.core.ISettings;
 import com.artech.timetableapp.ui.Views.View;
 import com.artech.timetableapp.ui.groups.GroupsView;
 import com.artech.timetableapp.ui.specialities.SpecialitiesView;
@@ -32,7 +33,10 @@ public record MainWindow(IStorage storage) {
         FXMLLoader fxmlLoader = new FXMLLoader(TimetableApplication.class.getResource(FXML));
         Scene scene;
         try {
-            scene = new Scene(fxmlLoader.load(), 1600, 900);
+            ISettings settings = TimetableApplication.getInstance().getSettings();
+            scene = new Scene(fxmlLoader.load(),
+                    settings.getWindowWidth(),
+                    settings.getWindowHeight());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,5 +1,6 @@
 package com.artech.timetableapp;
 
+import com.artech.timetableapp.config.SettingsXMLLoader;
 import com.artech.timetableapp.ui.MainWindow;
 import com.artech.timetableapp.core.IApplication;
 import com.artech.timetableapp.core.ISettings;
@@ -9,26 +10,18 @@ import com.artech.timetableapp.core.storage.IStorage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.sql.SQLException;
 
 /**
  * Приложение
  */
 public final class TimetableApplication extends Application implements IApplication {
-    private final ISettings settings = new ISettings() {
-        @Override
-        public Integer getLessonsPerDay() {
-            return 6;
-        }
-
-        @Override
-        public Integer getLessonsPerWeek() {
-            return 36;
-        }
-    };
     private static TimetableApplication instance;
     private final String databasePath;
+    private final String settingsPath;
     private IStorage storage;
+    private ISettings settings;
     private Stage primaryStage;
 
     /**
@@ -36,6 +29,7 @@ public final class TimetableApplication extends Application implements IApplicat
      */
     public TimetableApplication() {
         this.databasePath = "sqlite.db";
+        this.settingsPath = "config.xml";
     }
 
     public static void main(String[] args) {
@@ -44,16 +38,19 @@ public final class TimetableApplication extends Application implements IApplicat
 
     @Override
     public void start(Stage stage) {
-        run(stage);
+        instance = this;
+
+        loadConfig();
+        createStorage();
+        createUI(stage);
     }
 
     /**
-     * Запускает приложение
-     * @param stage Контейнер приложения
+     * Загружает конфигурацию приложения
      */
-    private void run(Stage stage) {
-        createStorage();
-        createUI(stage);
+    private void loadConfig() {
+        SettingsXMLLoader loader = new SettingsXMLLoader(new File(this.settingsPath));
+        this.settings = loader.Load();
     }
 
     /**
@@ -106,12 +103,11 @@ public final class TimetableApplication extends Application implements IApplicat
     }
 
     public static TimetableApplication getInstance() {
-        if (instance == null) instance = new TimetableApplication();
         return instance;
     }
 
     @Override
     public ISettings getSettings() {
-        return settings;
+        return this.settings;
     }
 }

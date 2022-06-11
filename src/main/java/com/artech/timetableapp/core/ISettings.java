@@ -16,4 +16,16 @@ public interface ISettings {
      * @return Количество занятий в неделю
      */
     Integer getLessonsPerWeek();
+
+    /**
+     * Получает высоту окна приложения
+     * @return Высота окна приложения
+     */
+    Integer getWindowHeight();
+
+    /**
+     * Получает ширину окна приложения
+     * @return Ширина окна приложения
+     */
+    Integer getWindowWidth();
 }
