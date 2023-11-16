@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Config>
+	<windowHeight>720</windowHeight>
+	<windowWidth>1280</windowWidth>
+	<lessonsPerDay>6</lessonsPerDay>
+	<lessonsPerWeek>36</lessonsPerWeek>
+</Config>
