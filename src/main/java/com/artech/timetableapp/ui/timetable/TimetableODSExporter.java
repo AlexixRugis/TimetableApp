@@ -21,8 +21,6 @@ public class TimetableODSExporter extends BaseExporter<GroupModel> {
 
     @Override
     protected void export(File file) {
-
-
         Sheet sheet = new Sheet("Расписание");
 
         sheet.appendColumns(Day.values().length);
@@ -48,7 +46,7 @@ public class TimetableODSExporter extends BaseExporter<GroupModel> {
         }
 
         for (TimetableLessonModel model : lessons) {
-            sheet.getDataRange().getCell(startRow + model.lessonNumber(), model.day().getIndex() - 1).setValue(String.format("%s\n%s", model.load().subject().name(), model.load().teacher()));
+            sheet.getDataRange().getCell(startRow + model.lessonNumber(), model.day().getIndex() - 1).setValue(String.format("%s\\\n%s", model.load().subject().name(), model.load().teacher()));
         }
 
         sheet.setColumnWidths(0, Day.values().length, 70.0);
